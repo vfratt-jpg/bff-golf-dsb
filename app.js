@@ -61,7 +61,7 @@ class GolfDashboard {
             }
 
             // Fetch fresh data
-            const response = await this.fetchWithRetry('data/championships.json');
+            const response = await this.fetchWithRetry('./data/championships.json');
             this.tournaments = await response.json();
             
             // Cache the data
