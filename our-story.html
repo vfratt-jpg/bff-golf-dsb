@@ -121,193 +121,171 @@
         .story-header p {
             font-size: 20px;
             opacity: 0.9;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        .timeline {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
         }
 
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background: linear-gradient(to bottom, #4CAF50, #2E7D32);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            padding: 20px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-            margin-bottom: 30px;
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            right: -10px;
-            background: #4CAF50;
-            border: 4px solid #fff;
-            top: 30px;
-            border-radius: 50%;
-            z-index: 1;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-
-        .timeline-item.left {
-            left: 0;
-        }
-
-        .timeline-item.right {
-            left: 50%;
-        }
-
-        .timeline-item.right::after {
-            left: -10px;
-        }
-
-        .timeline-content {
+        .story-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+            border-left: 6px solid #4CAF50;
         }
 
-        .timeline-item.left .timeline-content::before {
-            content: '';
-            position: absolute;
-            top: 30px;
-            right: -15px;
-            width: 0;
-            height: 0;
-            border: 15px solid transparent;
-            border-left-color: rgba(255, 255, 255, 0.95);
+        .story-card:hover {
+            transform: translateY(-8px);
         }
 
-        .timeline-item.right .timeline-content::before {
-            content: '';
-            position: absolute;
-            top: 30px;
-            left: -15px;
-            width: 0;
-            height: 0;
-            border: 15px solid transparent;
-            border-right-color: rgba(255, 255, 255, 0.95);
-        }
-
-        .timeline-year {
+        .card-year {
             background: linear-gradient(135deg, #4CAF50, #2E7D32);
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 8px 20px;
+            border-radius: 25px;
             font-weight: 700;
             font-size: 14px;
             display: inline-block;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
         }
 
-        .timeline-title {
+        .card-title {
             color: #1e3c72;
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .timeline-description {
+        .card-icon {
+            font-size: 32px;
+        }
+
+        .card-description {
             color: #555;
             font-size: 16px;
-            line-height: 1.7;
-            margin-bottom: 20px;
+            line-height: 1.8;
+            margin-bottom: 25px;
         }
 
-        .character-grid {
+        .highlight-text {
+            background: linear-gradient(135deg, #FFD700, #FFA000);
+            color: #333;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .character-showcase {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
 
         .character-card {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+            border-radius: 15px;
             text-align: center;
-            border-left: 4px solid #4CAF50;
+            border: 2px solid #4CAF50;
+            transition: all 0.3s ease;
+        }
+
+        .character-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
         }
 
         .character-name {
-            font-weight: 600;
+            font-weight: 700;
             color: #1e3c72;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-size: 16px;
         }
 
         .character-nickname {
-            font-size: 14px;
+            font-size: 13px;
             color: #666;
             font-style: italic;
+            background: #e8f5e8;
+            padding: 4px 8px;
+            border-radius: 12px;
         }
 
         .trophy-showcase {
+            margin-top: 60px;
+        }
+
+        .trophy-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
             margin-top: 30px;
         }
 
         .trophy-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             text-align: center;
             transition: transform 0.3s ease;
+            border-top: 6px solid #FFD700;
         }
 
         .trophy-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
         }
 
         .trophy-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
+            font-size: 60px;
+            margin-bottom: 20px;
+            display: block;
         }
 
         .trophy-name {
             color: #1e3c72;
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .trophy-description {
             color: #666;
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
         .trophy-year {
-            background: #e8f5e8;
-            color: #2E7D32;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: 600;
+            background: linear-gradient(135deg, #FFD700, #FFA000);
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
             display: inline-block;
-            margin-top: 10px;
+        }
+
+        .section-divider {
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50, #2E7D32, #4CAF50);
+            border-radius: 2px;
+            margin: 60px auto;
+            max-width: 200px;
         }
 
         @media (max-width: 768px) {
@@ -329,41 +307,24 @@
                 font-size: 16px;
             }
 
-            .timeline::after {
-                left: 20px;
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
 
-            .timeline-item {
-                width: 100%;
-                padding-left: 50px;
-                padding-right: 20px;
+            .story-card {
+                padding: 25px;
             }
 
-            .timeline-item.right {
-                left: 0%;
+            .card-title {
+                font-size: 24px;
             }
 
-            .timeline-item::after {
-                left: 10px;
-            }
-
-            .timeline-item.right::after {
-                left: 10px;
-            }
-
-            .timeline-content::before {
-                display: none;
-            }
-
-            .timeline-title {
-                font-size: 20px;
-            }
-
-            .character-grid {
+            .character-showcase {
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             }
 
-            .trophy-showcase {
+            .trophy-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -373,13 +334,12 @@
                 padding: 20px 15px;
             }
 
-            .timeline-item {
-                padding-left: 40px;
-                padding-right: 15px;
+            .story-card {
+                padding: 20px;
             }
 
-            .timeline-content {
-                padding: 20px;
+            .card-title {
+                font-size: 20px;
             }
 
             .story-header h1 {
@@ -409,223 +369,256 @@
     <div class="container">
         <div class="story-header">
             <h1>Our Golf Journey</h1>
-            <p>The epic tale of friendship, competition, and legendary championships that began in 1990</p>
+            <p>From humble beginnings at Bryce Virginia to championship glory at Pinehurst - the epic tale of friendship, competition, and legendary golf moments spanning over three decades</p>
         </div>
 
-        <div class="timeline">
-            <!-- 1990s - The Beginning -->
-            <div class="timeline-item left">
-                <div class="timeline-content">
-                    <div class="timeline-year">1990s</div>
-                    <h3 class="timeline-title">The Paultz Legacy Begins</h3>
-                    <p class="timeline-description">
-                        The journey started several years after the famed Paultz keg parties that evolved into party/golf outings. 
-                        The first tournament was the Paultz, named after a former ABA basketball player that Dave Petty loved. 
-                        It featured a four-man scramble format with teams drawn from B, B, C, and D level players.
-                    </p>
-                    <div class="character-grid">
-                        <div class="character-card">
-                            <div class="character-name">Dave Petty</div>
-                            <div class="character-nickname">Tournament Founder</div>
-                        </div>
-                        <div class="character-card">
-                            <div class="character-name">Kevin Britt</div>
-                            <div class="character-nickname">aka "Bob"</div>
-                        </div>
-                        <div class="character-card">
-                            <div class="character-name">Dom Fabiilli</div>
-                            <div class="character-nickname">Early Champion</div>
-                        </div>
-                        <div class="character-card">
-                            <div class="character-name">Ted Yatsko</div>
-                            <div class="character-nickname">Early Champion</div>
-                        </div>
-                        <div class="character-card">
-                            <div class="character-name">Ken Sympson</div>
-                            <div class="character-nickname">Early Champion</div>
-                        </div>
+        <div class="story-grid">
+            <!-- The Paultz Legacy -->
+            <div class="story-card">
+                <div class="card-year">1990s - The Beginning</div>
+                <h2 class="card-title">
+                    <span class="card-icon">🏌️</span>
+                    The Paultz Legacy
+                </h2>
+                <p class="card-description">
+                    Our journey began with the legendary <span class="highlight-text">Paultz tournaments</span> - named after a former ABA basketball player that Dave Petty admired. What started as casual keg parties evolved into competitive four-man scramble tournaments featuring teams drawn from B, C, and D level players. This original championship laid the foundation for decades of golf competition and friendship.
+                </p>
+                <div class="character-showcase">
+                    <div class="character-card">
+                        <div class="character-name">Dave Petty</div>
+                        <div class="character-nickname">Tournament Founder</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">Kevin Britt</div>
+                        <div class="character-nickname">aka "Bob"</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">Dom Fabiilli</div>
+                        <div class="character-nickname">Early Champion</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">Ted Yatsko</div>
+                        <div class="character-nickname">aka "The Godfather"</div>
                     </div>
                 </div>
             </div>
 
-            <!-- 1990s - Bryce Virginia Adventures -->
-            <div class="timeline-item right">
-                <div class="timeline-content">
-                    <div class="timeline-year">1990s</div>
-                    <h3 class="timeline-title">Bryce Virginia Adventures</h3>
-                    <p class="timeline-description">
-                        Ted's sister had a timeshare at the Bryce Ski and Golf resort in Bryce, Virginia. The timing was always around Good Friday in early April - not ideal since it wasn't always cold enough for snow to ski and not always warm enough for golf. When it rained/slushed ice, forget about Jimmy playing in that! Ted, aka "The Godfather," invited several friends to the resort to play golf.
-                    </p>
-                    <div class="character-grid">
-                        <div class="character-card">
-                            <div class="character-name">Ted Yatsko</div>
-                            <div class="character-nickname">aka "The Godfather"</div>
-                        </div>
-                        <div class="character-card">
-                            <div class="character-name">Dave Petty</div>
-                            <div class="character-nickname">Original Member</div>
-                        </div>
-                        <div class="character-card">
-                            <div class="character-name">John Bart</div>
-                            <div class="character-nickname">aka "JB"</div>
-                        </div>
-                        <div class="character-card">
-                            <div class="character-name">Ken Sympson</div>
-                            <div class="character-nickname">aka "Skyler"</div>
-                        </div>
-                        <div class="character-card">
-                            <div class="character-name">Paul Dutko</div>
-                            <div class="character-nickname">aka "Hulk"</div>
-                        </div>
-                        <div class="character-card">
-                            <div class="character-name">Kevin Britt</div>
-                            <div class="character-nickname">aka "Bob"</div>
-                        </div>
-                        <div class="character-card">
-                            <div class="character-name">Digger</div>
-                            <div class="character-nickname">Original Member</div>
-                        </div>
+            <!-- Bryce Virginia Era -->
+            <div class="story-card">
+                <div class="card-year">1990s - The Adventure</div>
+                <h2 class="card-title">
+                    <span class="card-icon">🏔️</span>
+                    Bryce Virginia Adventures
+                </h2>
+                <p class="card-description">
+                    Ted's sister owned a timeshare at <span class="highlight-text">Bryce Ski and Golf Resort</span> in Virginia, always available around Good Friday in early April. The timing was challenging - not always cold enough for skiing, not always warm enough for golf. When it rained or turned to slush, forget about Jimmy playing! Despite the weather challenges, these annual trips forged the bonds that would define our golf brotherhood.
+                </p>
+                <div class="character-showcase">
+                    <div class="character-card">
+                        <div class="character-name">Ted Yatsko</div>
+                        <div class="character-nickname">"The Godfather"</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">John Bart</div>
+                        <div class="character-nickname">aka "JB"</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">Ken Sympson</div>
+                        <div class="character-nickname">aka "Skyler"</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">Paul Dutko</div>
+                        <div class="character-nickname">aka "Hulk"</div>
                     </div>
                 </div>
             </div>
 
-            <!-- 2000s - The Core 9 Forms -->
-            <div class="timeline-item left">
-                <div class="timeline-content">
-                    <div class="timeline-year">2000s</div>
-                    <h3 class="timeline-title">The Core 9 Emerges</h3>
-                    <p class="timeline-description">
-                        After several years, the makeup of participants evolved to include new members who would become the legendary core group. This became the core 9 that began a golf journey to be remembered!
-                    </p>
-                    <div class="character-grid">
-                        <div class="character-card">
-                            <div class="character-name">Vince Frattaroli</div>
-                            <div class="character-nickname">aka "Shooter"</div>
-                        </div>
-                        <div class="character-card">
-                            <div class="character-name">Dom Fabiilli</div>
-                            <div class="character-nickname">aka "Tsunami"</div>
-                        </div>
-                        <div class="character-card">
-                            <div class="character-name">Jim Flanagan</div>
-                            <div class="character-nickname">aka "Jimmy"</div>
-                        </div>
-                        <div class="character-card">
-                            <div class="character-name">Michael Wolper</div>
-                            <div class="character-nickname">aka "Captain Cuervo"</div>
-                        </div>
+            <!-- The Core 9 Formation -->
+            <div class="story-card">
+                <div class="card-year">2000s - Evolution</div>
+                <h2 class="card-title">
+                    <span class="card-icon">👥</span>
+                    The Core 9 Emerges
+                </h2>
+                <p class="card-description">
+                    As years passed, the group evolved to include new members who would become the <span class="highlight-text">legendary core 9</span>. This was the formation that would begin a golf journey to be remembered forever. The addition of Vince "Shooter" Frattaroli, Dom "Tsunami" Fabiilli, Jim "Jimmy" Flanagan, and Michael "Captain Cuervo" Wolper completed the championship roster that continues to compete today.
+                </p>
+                <div class="character-showcase">
+                    <div class="character-card">
+                        <div class="character-name">Vince Frattaroli</div>
+                        <div class="character-nickname">"Shooter"</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">Dom Fabiilli</div>
+                        <div class="character-nickname">"Tsunami"</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">Jim Flanagan</div>
+                        <div class="character-nickname">"Jimmy"</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">Michael Wolper</div>
+                        <div class="character-nickname">"Captain Cuervo"</div>
                     </div>
                 </div>
             </div>
 
-            <!-- 2010 - Brycehurst Invitational -->
-            <div class="timeline-item right">
-                <div class="timeline-content">
-                    <div class="timeline-year">2010</div>
-                    <h3 class="timeline-title">The Brycehurst Invitational is Born</h3>
-                    <p class="timeline-description">
-                        The Brycehurst Invitational was born when Jimmy, who had a Pinehurst CC membership, invited the group to have their Bryce outing there instead. The name is a combination of their long-running Bryce golf outing and their new venue, Pinehurst! The inaugural winner was Ken Sympson. Dave Petty and John did not make this first year in Pinehurst, and Dave sadly passed away that same year.
-                    </p>
-                    <div class="trophy-year">First Brycehurst Champion: Ken Sympson</div>
+            <!-- Pinehurst Era Begins -->
+            <div class="story-card">
+                <div class="card-year">2010 - The Revolution</div>
+                <h2 class="card-title">
+                    <span class="card-icon">🏆</span>
+                    Brycehurst Invitational Born
+                </h2>
+                <p class="card-description">
+                    The game changed forever when Jimmy, with his <span class="highlight-text">Pinehurst Country Club membership</span>, invited the group to hold their annual outing at the legendary Pinehurst Resort instead of Bryce. The name "Brycehurst" perfectly combined their cherished Bryce tradition with their prestigious new venue. Ken Sympson claimed the inaugural championship, marking the beginning of the modern era.
+                </p>
+                <div class="character-showcase">
+                    <div class="character-card">
+                        <div class="character-name">Ken Sympson</div>
+                        <div class="character-nickname">First Brycehurst Champion</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">Jim Flanagan</div>
+                        <div class="character-nickname">Pinehurst Host</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 2011 - The Petty Cup -->
-            <div class="timeline-item left">
-                <div class="timeline-content">
-                    <div class="timeline-year">2011</div>
-                    <h3 class="timeline-title">The Petty Cup Memorial</h3>
-                    <p class="timeline-description">
-                        Following Dave Petty's passing, the Brycehurst Invitational adopted "The Petty Cup" trophy in his honor. This became the flagship championship, maintaining the tournament's prestige while memorializing their beloved friend and founding member.
-                    </p>
-                    <div class="trophy-year">First Petty Cup Champion: Kevin Britt</div>
+            <!-- The Petty Cup Memorial -->
+            <div class="story-card">
+                <div class="card-year">2011 - The Memorial</div>
+                <h2 class="card-title">
+                    <span class="card-icon">💙</span>
+                    The Petty Cup Legacy
+                </h2>
+                <p class="card-description">
+                    Following the passing of beloved founder <span class="highlight-text">Dave Petty</span>, the Brycehurst Invitational adopted "The Petty Cup" trophy in his honor. This became our flagship championship, preserving Dave's memory while elevating the tournament's prestige. Kevin Britt earned the honor of being the first Petty Cup champion, beginning a tradition that continues to this day.
+                </p>
+                <div class="character-showcase">
+                    <div class="character-card">
+                        <div class="character-name">Dave Petty</div>
+                        <div class="character-nickname">Forever Remembered</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">Kevin Britt</div>
+                        <div class="character-nickname">First Petty Cup Winner</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 2020 - The COW Wars Begin -->
-            <div class="timeline-item right">
-                <div class="timeline-content">
-                    <div class="timeline-year">2020</div>
-                    <h3 class="timeline-title">The Championship Wars Begin</h3>
-                    <p class="timeline-description">
-                        The Championship of the World (COW) trophy was created by Paul from a trophy he found at a garage sale, in protest of Jim's early Petty Cup dominance. It came with its own set of rules designed to make it difficult for Jim to win. In response, Jim created the Undisputed Championship of the World (UCOW) - the same trophy with a piece of tape and "UCOW" written on it!
-                    </p>
-                    <div class="trophy-year">COW & UCOW Era Begins</div>
+            <!-- The Championship Wars -->
+            <div class="story-card">
+                <div class="card-year">2020 - The Wars Begin</div>
+                <h2 class="card-title">
+                    <span class="card-icon">⚔️</span>
+                    The Championship Wars
+                </h2>
+                <p class="card-description">
+                    Competitive fire reached new heights when Paul created the <span class="highlight-text">Championship of the World (COW)</span> from a garage sale trophy, specifically designed to challenge Jim's Petty Cup dominance. Jim's response was swift and creative - the Undisputed Championship of the World (UCOW), literally the same trophy with tape and "UCOW" written on it! This sparked the era of multiple championships and intense rivalries.
+                </p>
+                <div class="character-showcase">
+                    <div class="character-card">
+                        <div class="character-name">Paul Dutko</div>
+                        <div class="character-nickname">COW Creator</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">Jim Flanagan</div>
+                        <div class="character-nickname">UCOW Founder</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 2022 - More Trophies -->
-            <div class="timeline-item left">
-                <div class="timeline-content">
-                    <div class="timeline-year">2022</div>
-                    <h3 class="timeline-title">The Trophy Collection Expands</h3>
-                    <p class="timeline-description">
-                        John wanted to join the fun and created a low net competition called the Twice as Much Cup (TAMC), which is actually a brown jug. You can only qualify by staying in JB's camper - Vince was the first participant when he and John camped at Bryce. Dom soon joined the club. Ken added a low gross game he named "Suck it Up Cup" (SUC), though to this day there's no actual cup or trophy representing the competition.
-                    </p>
-                    <div class="trophy-year">TAMC & SUC Championships Launch</div>
+            <!-- The Trophy Expansion -->
+            <div class="story-card">
+                <div class="card-year">2022 - The Expansion</div>
+                <h2 class="card-title">
+                    <span class="card-icon">🏅</span>
+                    Trophy Collection Grows
+                </h2>
+                <p class="card-description">
+                    The competitive spirit was contagious! John created the <span class="highlight-text">Twice as Much Cup (TAMC)</span> - a brown jug with the unique qualification requirement of staying in JB's camper. Ken added the "Suck it Up Cup" (SUC) for low gross competition, though the actual trophy remains mysteriously absent to this day. These additions created our comprehensive championship system with something for every competitive style.
+                </p>
+                <div class="character-showcase">
+                    <div class="character-card">
+                        <div class="character-name">John Bart</div>
+                        <div class="character-nickname">TAMC Creator</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">Ken Sympson</div>
+                        <div class="character-nickname">SUC Founder</div>
+                    </div>
+                    <div class="character-card">
+                        <div class="character-name">Vince Frattaroli</div>
+                        <div class="character-nickname">First TAMC Winner</div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="section-divider"></div>
 
         <!-- Trophy Showcase -->
-        <div class="story-header" style="margin-top: 60px;">
-            <h2>Our Championship Trophies</h2>
-            <p>Each trophy tells a story of friendship, competition, and legendary moments</p>
-        </div>
-
         <div class="trophy-showcase">
-            <div class="trophy-card">
-                <div class="trophy-icon">🏆</div>
-                <div class="trophy-name">The Petty Cup</div>
-                <div class="trophy-description">
-                    The flagship championship honoring Dave Petty. Multi-round tournament held annually at Pinehurst, representing the pinnacle of our competitive golf.
-                </div>
-                <div class="trophy-year">Est. 2011</div>
+            <div class="story-header">
+                <h2>Our Championship Trophies</h2>
+                <p>Each trophy represents a unique chapter in our golf journey, with its own rules, traditions, and legendary moments</p>
             </div>
 
-            <div class="trophy-card">
-                <div class="trophy-icon">🐄</div>
-                <div class="trophy-name">COW/UCOW</div>
-                <div class="trophy-description">
-                    The Championship of the World and Undisputed Championship of the World. Born from friendly rivalry and garage sale finds, unified into our most active championship.
+            <div class="trophy-grid">
+                <div class="trophy-card">
+                    <span class="trophy-icon">🏆</span>
+                    <div class="trophy-name">The Petty Cup</div>
+                    <div class="trophy-description">
+                        Our flagship championship honoring Dave Petty. This prestigious multi-round tournament at Pinehurst represents the pinnacle of our competitive golf, combining tradition with championship-level play.
+                    </div>
+                    <div class="trophy-year">Est. 2011</div>
                 </div>
-                <div class="trophy-year">Est. 2020</div>
-            </div>
 
-            <div class="trophy-card">
-                <div class="trophy-icon">🏌️</div>
-                <div class="trophy-name">Paultz Championship</div>
-                <div class="trophy-description">
-                    The original tournament that started it all. Named after an ABA basketball player, featuring the classic four-man scramble format at Mill Creek.
+                <div class="trophy-card">
+                    <span class="trophy-icon">🐄</span>
+                    <div class="trophy-name">COW/UCOW</div>
+                    <div class="trophy-description">
+                        Born from friendly rivalry and a garage sale find, the Championship of the World and its Undisputed counterpart merged into our most active and contested championship series.
+                    </div>
+                    <div class="trophy-year">Est. 2020</div>
                 </div>
-                <div class="trophy-year">Est. 1990s</div>
-            </div>
 
-            <div class="trophy-card">
-                <div class="trophy-icon">💰</div>
-                <div class="trophy-name">Twice as Much Cup</div>
-                <div class="trophy-description">
-                    JB's brown jug championship. Low net competition with a unique qualification requirement - you must stay in JB's camper to participate.
+                <div class="trophy-card">
+                    <span class="trophy-icon">🏌️</span>
+                    <div class="trophy-name">Paultz Championship</div>
+                    <div class="trophy-description">
+                        The original tournament that started our journey. Named after an ABA basketball player, featuring the classic four-man scramble format that built our foundation of friendship and competition.
+                    </div>
+                    <div class="trophy-year">Est. 1990s</div>
                 </div>
-                <div class="trophy-year">Est. 2022</div>
-            </div>
 
-            <div class="trophy-card">
-                <div class="trophy-icon">⬆️</div>
-                <div class="trophy-name">Suck it Up Cup</div>
-                <div class="trophy-description">
-                    Ken's low gross competition. The championship that exists in spirit - still searching for an actual trophy to represent this prestigious title.
+                <div class="trophy-card">
+                    <span class="trophy-icon">💰</span>
+                    <div class="trophy-name">Twice as Much Cup</div>
+                    <div class="trophy-description">
+                        JB's unique brown jug championship featuring low net competition. The exclusive qualification requirement - staying in JB's camper - makes this our most adventurous trophy to pursue.
+                    </div>
+                    <div class="trophy-year">Est. 2022</div>
                 </div>
-                <div class="trophy-year">Est. 2022</div>
-            </div>
 
-            <div class="trophy-card">
-                <div class="trophy-icon">🌟</div>
-                <div class="trophy-name">Brycehurst Invitational</div>
-                <div class="trophy-description">
-                    The tournament that brought us to Pinehurst. A special invitational format that launched our legendary championship era.
+                <div class="trophy-card">
+                    <span class="trophy-icon">⬆️</span>
+                    <div class="trophy-name">Suck it Up Cup</div>
+                    <div class="trophy-description">
+                        Ken's low gross competition that exists purely in competitive spirit. The championship that proves sometimes the glory is more important than the hardware - still searching for an actual trophy!
+                    </div>
+                    <div class="trophy-year">Est. 2022</div>
                 </div>
-                <div class="trophy-year">Est. 2010</div>
+
+                <div class="trophy-card">
+                    <span class="trophy-icon">🌟</span>
+                    <div class="trophy-name">Brycehurst Invitational</div>
+                    <div class="trophy-description">
+                        The tournament that elevated our game to Pinehurst. This special invitational format launched our legendary championship era and established our presence at America's golf mecca.
+                    </div>
+                    <div class="trophy-year">Est. 2010</div>
+                </div>
             </div>
         </div>
     </div>
