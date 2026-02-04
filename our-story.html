@@ -125,13 +125,66 @@
             margin: 0 auto;
         }
 
-        .story-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
+        /* Timeline Container */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
+        /* Timeline Line */
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, #4CAF50, #2E7D32, #4CAF50);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Timeline Items */
+        .timeline-item {
+            padding: 20px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            margin-bottom: 40px;
+        }
+
+        /* Timeline Dots */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            border: 4px solid #fff;
+            top: 40px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Left side items */
+        .timeline-item.left {
+            left: 0;
+        }
+
+        /* Right side items */
+        .timeline-item.right {
+            left: 50%;
+        }
+
+        .timeline-item.right::after {
+            left: -12px;
+        }
+
+        /* Story Cards */
         .story-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -140,10 +193,36 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             transition: transform 0.3s ease;
             border-left: 6px solid #4CAF50;
+            position: relative;
         }
 
         .story-card:hover {
             transform: translateY(-8px);
+        }
+
+        /* Timeline Arrows */
+        .timeline-item.left .story-card::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -20px;
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+            border-left-color: rgba(255, 255, 255, 0.95);
+            z-index: 1;
+        }
+
+        .timeline-item.right .story-card::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: -20px;
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+            border-right-color: rgba(255, 255, 255, 0.95);
+            z-index: 1;
         }
 
         .card-year {
@@ -288,6 +367,7 @@
             max-width: 200px;
         }
 
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -307,13 +387,31 @@
                 font-size: 16px;
             }
 
-            .story-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
+            /* Mobile Timeline */
+            .timeline::after {
+                left: 31px;
             }
 
-            .story-card {
-                padding: 25px;
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item.right {
+                left: 0%;
+            }
+
+            .timeline-item::after {
+                left: 18px;
+            }
+
+            .timeline-item.right::after {
+                left: 18px;
+            }
+
+            .story-card::before {
+                display: none;
             }
 
             .card-title {
@@ -332,6 +430,11 @@
         @media (max-width: 480px) {
             .container {
                 padding: 20px 15px;
+            }
+
+            .timeline-item {
+                padding-left: 60px;
+                padding-right: 20px;
             }
 
             .story-card {
@@ -372,185 +475,199 @@
             <p>From humble beginnings at Bryce Virginia to championship glory at Pinehurst - the epic tale of friendship, competition, and legendary golf moments spanning over three decades</p>
         </div>
 
-        <div class="story-grid">
+        <div class="timeline">
             <!-- The Paultz Legacy -->
-            <div class="story-card">
-                <div class="card-year">1990s - The Beginning</div>
-                <h2 class="card-title">
-                    <span class="card-icon">🏌️</span>
-                    The Paultz Legacy
-                </h2>
-                <p class="card-description">
-                    Our journey began with the legendary <span class="highlight-text">Paultz tournaments</span> - named after a former ABA basketball player that Dave Petty admired. What started as casual keg parties evolved into competitive four-man scramble tournaments featuring teams drawn from B, C, and D level players. This original championship laid the foundation for decades of golf competition and friendship.
-                </p>
-                <div class="character-showcase">
-                    <div class="character-card">
-                        <div class="character-name">Dave Petty</div>
-                        <div class="character-nickname">Tournament Founder</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">Kevin Britt</div>
-                        <div class="character-nickname">aka "Bob"</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">Dom Fabiilli</div>
-                        <div class="character-nickname">Early Champion</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">Ted Yatsko</div>
-                        <div class="character-nickname">aka "The Godfather"</div>
+            <div class="timeline-item left">
+                <div class="story-card">
+                    <div class="card-year">1990s - The Beginning</div>
+                    <h2 class="card-title">
+                        <span class="card-icon">🏌️</span>
+                        The Paultz Legacy
+                    </h2>
+                    <p class="card-description">
+                        Our journey began with the legendary <span class="highlight-text">Paultz tournaments</span> - named after a former ABA basketball player that Dave Petty admired. What started as casual keg parties evolved into competitive four-man scramble tournaments featuring teams drawn from B, C, and D level players. This original championship laid the foundation for decades of golf competition and friendship.
+                    </p>
+                    <div class="character-showcase">
+                        <div class="character-card">
+                            <div class="character-name">Dave Petty</div>
+                            <div class="character-nickname">Tournament Founder</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">Kevin Britt</div>
+                            <div class="character-nickname">aka "Bob"</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">Dom Fabiilli</div>
+                            <div class="character-nickname">Early Champion</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">Ted Yatsko</div>
+                            <div class="character-nickname">aka "The Godfather"</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Bryce Virginia Era -->
-            <div class="story-card">
-                <div class="card-year">1990s - The Adventure</div>
-                <h2 class="card-title">
-                    <span class="card-icon">🏔️</span>
-                    Bryce Virginia Adventures
-                </h2>
-                <p class="card-description">
-                    Ted's sister owned a timeshare at <span class="highlight-text">Bryce Ski and Golf Resort</span> in Virginia, always available around Good Friday in early April. The timing was challenging - not always cold enough for skiing, not always warm enough for golf. When it rained or turned to slush, forget about Jimmy playing! Despite the weather challenges, these annual trips forged the bonds that would define our golf brotherhood.
-                </p>
-                <div class="character-showcase">
-                    <div class="character-card">
-                        <div class="character-name">Ted Yatsko</div>
-                        <div class="character-nickname">"The Godfather"</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">John Bart</div>
-                        <div class="character-nickname">aka "JB"</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">Ken Sympson</div>
-                        <div class="character-nickname">aka "Skyler"</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">Paul Dutko</div>
-                        <div class="character-nickname">aka "Hulk"</div>
+            <div class="timeline-item right">
+                <div class="story-card">
+                    <div class="card-year">1990s - The Adventure</div>
+                    <h2 class="card-title">
+                        <span class="card-icon">🏔️</span>
+                        Bryce Virginia Adventures
+                    </h2>
+                    <p class="card-description">
+                        Ted's sister owned a timeshare at <span class="highlight-text">Bryce Ski and Golf Resort</span> in Virginia, always available around Good Friday in early April. The timing was challenging - not always cold enough for skiing, not always warm enough for golf. When it rained or turned to slush, forget about Jimmy playing! Despite the weather challenges, these annual trips forged the bonds that would define our golf brotherhood.
+                    </p>
+                    <div class="character-showcase">
+                        <div class="character-card">
+                            <div class="character-name">Ted Yatsko</div>
+                            <div class="character-nickname">"The Godfather"</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">John Bart</div>
+                            <div class="character-nickname">aka "JB"</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">Ken Sympson</div>
+                            <div class="character-nickname">aka "Skyler"</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">Paul Dutko</div>
+                            <div class="character-nickname">aka "Hulk"</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- The Core 9 Formation -->
-            <div class="story-card">
-                <div class="card-year">2000s - Evolution</div>
-                <h2 class="card-title">
-                    <span class="card-icon">👥</span>
-                    The Core 9 Emerges
-                </h2>
-                <p class="card-description">
-                    As years passed, the group evolved to include new members who would become the <span class="highlight-text">legendary core 9</span>. This was the formation that would begin a golf journey to be remembered forever. The addition of Vince "Shooter" Frattaroli, Dom "Tsunami" Fabiilli, Jim "Jimmy" Flanagan, and Michael "Captain Cuervo" Wolper completed the championship roster that continues to compete today.
-                </p>
-                <div class="character-showcase">
-                    <div class="character-card">
-                        <div class="character-name">Vince Frattaroli</div>
-                        <div class="character-nickname">"Shooter"</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">Dom Fabiilli</div>
-                        <div class="character-nickname">"Tsunami"</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">Jim Flanagan</div>
-                        <div class="character-nickname">"Jimmy"</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">Michael Wolper</div>
-                        <div class="character-nickname">"Captain Cuervo"</div>
+            <div class="timeline-item left">
+                <div class="story-card">
+                    <div class="card-year">2000s - Evolution</div>
+                    <h2 class="card-title">
+                        <span class="card-icon">👥</span>
+                        The Core 9 Emerges
+                    </h2>
+                    <p class="card-description">
+                        As years passed, the group evolved to include new members who would become the <span class="highlight-text">legendary core 9</span>. This was the formation that would begin a golf journey to be remembered forever. The addition of Vince "Shooter" Frattaroli, Dom "Tsunami" Fabiilli, Jim "Jimmy" Flanagan, and Michael "Captain Cuervo" Wolper completed the championship roster that continues to compete today.
+                    </p>
+                    <div class="character-showcase">
+                        <div class="character-card">
+                            <div class="character-name">Vince Frattaroli</div>
+                            <div class="character-nickname">"Shooter"</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">Dom Fabiilli</div>
+                            <div class="character-nickname">"Tsunami"</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">Jim Flanagan</div>
+                            <div class="character-nickname">"Jimmy"</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">Michael Wolper</div>
+                            <div class="character-nickname">"Captain Cuervo"</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Pinehurst Era Begins -->
-            <div class="story-card">
-                <div class="card-year">2010 - The Revolution</div>
-                <h2 class="card-title">
-                    <span class="card-icon">🏆</span>
-                    Brycehurst Invitational Born
-                </h2>
-                <p class="card-description">
-                    The game changed forever when Jimmy, with his <span class="highlight-text">Pinehurst Country Club membership</span>, invited the group to hold their annual outing at the legendary Pinehurst Resort instead of Bryce. The name "Brycehurst" perfectly combined their cherished Bryce tradition with their prestigious new venue. Ken Sympson claimed the inaugural championship, marking the beginning of the modern era.
-                </p>
-                <div class="character-showcase">
-                    <div class="character-card">
-                        <div class="character-name">Ken Sympson</div>
-                        <div class="character-nickname">First Brycehurst Champion</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">Jim Flanagan</div>
-                        <div class="character-nickname">Pinehurst Host</div>
+            <div class="timeline-item right">
+                <div class="story-card">
+                    <div class="card-year">2010 - The Revolution</div>
+                    <h2 class="card-title">
+                        <span class="card-icon">🏆</span>
+                        Brycehurst Invitational Born
+                    </h2>
+                    <p class="card-description">
+                        The game changed forever when Jimmy, with his <span class="highlight-text">Pinehurst Country Club membership</span>, invited the group to hold their annual outing at the legendary Pinehurst Resort instead of Bryce. The name "Brycehurst" perfectly combined their cherished Bryce tradition with their prestigious new venue. Ken Sympson claimed the inaugural championship, marking the beginning of the modern era.
+                    </p>
+                    <div class="character-showcase">
+                        <div class="character-card">
+                            <div class="character-name">Ken Sympson</div>
+                            <div class="character-nickname">First Brycehurst Champion</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">Jim Flanagan</div>
+                            <div class="character-nickname">Pinehurst Host</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- The Petty Cup Memorial -->
-            <div class="story-card">
-                <div class="card-year">2011 - The Memorial</div>
-                <h2 class="card-title">
-                    <span class="card-icon">💙</span>
-                    The Petty Cup Legacy
-                </h2>
-                <p class="card-description">
-                    Following the passing of beloved founder <span class="highlight-text">Dave Petty</span>, the Brycehurst Invitational adopted "The Petty Cup" trophy in his honor. This became our flagship championship, preserving Dave's memory while elevating the tournament's prestige. Kevin Britt earned the honor of being the first Petty Cup champion, beginning a tradition that continues to this day.
-                </p>
-                <div class="character-showcase">
-                    <div class="character-card">
-                        <div class="character-name">Dave Petty</div>
-                        <div class="character-nickname">Forever Remembered</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">Kevin Britt</div>
-                        <div class="character-nickname">First Petty Cup Winner</div>
+            <div class="timeline-item left">
+                <div class="story-card">
+                    <div class="card-year">2011 - The Memorial</div>
+                    <h2 class="card-title">
+                        <span class="card-icon">💙</span>
+                        The Petty Cup Legacy
+                    </h2>
+                    <p class="card-description">
+                        Following the passing of beloved founder <span class="highlight-text">Dave Petty</span>, the Brycehurst Invitational adopted "The Petty Cup" trophy in his honor. This became our flagship championship, preserving Dave's memory while elevating the tournament's prestige. Kevin Britt earned the honor of being the first Petty Cup champion, beginning a tradition that continues to this day.
+                    </p>
+                    <div class="character-showcase">
+                        <div class="character-card">
+                            <div class="character-name">Dave Petty</div>
+                            <div class="character-nickname">Forever Remembered</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">Kevin Britt</div>
+                            <div class="character-nickname">First Petty Cup Winner</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- The Championship Wars -->
-            <div class="story-card">
-                <div class="card-year">2020 - The Wars Begin</div>
-                <h2 class="card-title">
-                    <span class="card-icon">⚔️</span>
-                    The Championship Wars
-                </h2>
-                <p class="card-description">
-                    Competitive fire reached new heights when Paul created the <span class="highlight-text">Championship of the World (COW)</span> from a garage sale trophy, specifically designed to challenge Jim's Petty Cup dominance. Jim's response was swift and creative - the Undisputed Championship of the World (UCOW), literally the same trophy with tape and "UCOW" written on it! This sparked the era of multiple championships and intense rivalries.
-                </p>
-                <div class="character-showcase">
-                    <div class="character-card">
-                        <div class="character-name">Paul Dutko</div>
-                        <div class="character-nickname">COW Creator</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">Jim Flanagan</div>
-                        <div class="character-nickname">UCOW Founder</div>
+            <div class="timeline-item right">
+                <div class="story-card">
+                    <div class="card-year">2020 - The Wars Begin</div>
+                    <h2 class="card-title">
+                        <span class="card-icon">⚔️</span>
+                        The Championship Wars
+                    </h2>
+                    <p class="card-description">
+                        Competitive fire reached new heights when Paul created the <span class="highlight-text">Championship of the World (COW)</span> from a garage sale trophy, specifically designed to challenge Jim's Petty Cup dominance. Jim's response was swift and creative - the Undisputed Championship of the World (UCOW), literally the same trophy with tape and "UCOW" written on it! This sparked the era of multiple championships and intense rivalries.
+                    </p>
+                    <div class="character-showcase">
+                        <div class="character-card">
+                            <div class="character-name">Paul Dutko</div>
+                            <div class="character-nickname">COW Creator</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">Jim Flanagan</div>
+                            <div class="character-nickname">UCOW Founder</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- The Trophy Expansion -->
-            <div class="story-card">
-                <div class="card-year">2022 - The Expansion</div>
-                <h2 class="card-title">
-                    <span class="card-icon">🏅</span>
-                    Trophy Collection Grows
-                </h2>
-                <p class="card-description">
-                    The competitive spirit was contagious! John created the <span class="highlight-text">Twice as Much Cup (TAMC)</span> - a brown jug with the unique qualification requirement of staying in JB's camper. Ken added the "Suck it Up Cup" (SUC) for low gross competition, though the actual trophy remains mysteriously absent to this day. These additions created our comprehensive championship system with something for every competitive style.
-                </p>
-                <div class="character-showcase">
-                    <div class="character-card">
-                        <div class="character-name">John Bart</div>
-                        <div class="character-nickname">TAMC Creator</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">Ken Sympson</div>
-                        <div class="character-nickname">SUC Founder</div>
-                    </div>
-                    <div class="character-card">
-                        <div class="character-name">Vince Frattaroli</div>
-                        <div class="character-nickname">First TAMC Winner</div>
+            <div class="timeline-item left">
+                <div class="story-card">
+                    <div class="card-year">2022 - The Expansion</div>
+                    <h2 class="card-title">
+                        <span class="card-icon">🏅</span>
+                        Trophy Collection Grows
+                    </h2>
+                    <p class="card-description">
+                        The competitive spirit was contagious! John created the <span class="highlight-text">Twice as Much Cup (TAMC)</span> - a brown jug with the unique qualification requirement of staying in JB's camper. Ken added the "Suck it Up Cup" (SUC) for low gross competition, though the actual trophy remains mysteriously absent to this day. These additions created our comprehensive championship system with something for every competitive style.
+                    </p>
+                    <div class="character-showcase">
+                        <div class="character-card">
+                            <div class="character-name">John Bart</div>
+                            <div class="character-nickname">TAMC Creator</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">Ken Sympson</div>
+                            <div class="character-nickname">SUC Founder</div>
+                        </div>
+                        <div class="character-card">
+                            <div class="character-name">Vince Frattaroli</div>
+                            <div class="character-nickname">First TAMC Winner</div>
+                        </div>
                     </div>
                 </div>
             </div>
