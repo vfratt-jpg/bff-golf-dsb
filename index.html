@@ -602,69 +602,235 @@
         }
 
         function createTrophyCards() {
-            const trophyStats = {};
-            
-            championshipData.forEach(tournament => {
-                if (!trophyStats[tournament.trophy]) {
-                    trophyStats[tournament.trophy] = {
-                        count: 0,
-                        players: {},
-                        data: []
-                    };
+    const trophyStats = {};
+    
+    championshipData.forEach(tournament => {
+        if (!trophyStats[tournament.trophy]) {
+            trophyStats[tournament.trophy] = {
+                count: 0,
+                players: {},
+                data: []
+            };
+        }
+        trophyStats[tournament.trophy].count++;
+        trophyStats[tournament.trophy].data.push(tournament);
+        
+        if (!trophyStats[tournament.trophy].players[tournament.name]) {
+            trophyStats[tournament.trophy].players[tournament.name] = 0;
+        }
+        trophyStats[tournament.trophy].players[tournament.name]++;
+    });
+
+    const trophyDescriptions = {
+        'Petty Cup': 'Flagship Multi-Round Tournament',
+        'COW/UCOW': 'Most Active Championship',
+        'COW': 'Original Championship Format',
+        'UCOW': 'Ultimate Championship',
+        'TAMC': 'Twice as Much Cup',
+        'SUC': 'Straight Up Competition',
+        'Brycehurst': 'Invitational Format',
+        'Paultz': 'Historic Mill Creek Tradition'
+    };
+
+    const trophyIcons = {
+        'Petty Cup': '🏆',
+        'COW/UCOW': '🐄',
+        'COW': '🐄',
+        'UCOW': '👑',
+        'TAMC': '🏕️',
+        'SUC': '⬆️',
+        'Brycehurst': '🏌️',
+        'Paultz': '🍺'
+    };
+
+    const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FF6B6B', '#4ECDC4'];
+
+    const cardsHtml = Object.entries(trophyStats).map(([trophy, stats], index) => {
+        const chartId = `chart-${trophy.replace(/[^a-zA-Z0-9]/g, '')}`;
+        
+        return `
+            <div class="trophy-card">
+                <h3>${trophyIcons[trophy] || '🏆'} ${trophy} Winners</h3>
+                <div class="trophy-total">${stats.count} Championships</div>
+                <div class="trophy-subtitle">${trophyDescriptions[trophy] || 'Championship Tournament'}</div>
+                <div class="chart-container small-chart">
+                    <canvas id="${chartId}"></canvas>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    // Add Champion Performance Over Time card
+    const performanceCardHtml = `
+        <div class="trophy-card performance-card">
+            <h3>📈 Champion Performance Over Time</h3>
+            <div class="trophy-subtitle">Championship wins by year (1999-2025)</div>
+            <div class="chart-container performance-chart">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('trophyCards').innerHTML = cardsHtml + performanceCardHtml;
+
+    // Create individual donut charts for each trophy
+    Object.entries(trophyStats).forEach(([trophy, stats], index) => {
+        const chartId = `chart-${trophy.replace(/[^a-zA-Z0-9]/g, '')}`;
+        const ctx = document.getElementById(chartId);
+        if (ctx) {
+            const playerData = Object.entries(stats.players).sort(([,a], [,b]) => b - a);
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: playerData.map(([name]) => name),
+                    datasets: [{
+                        data: playerData.map(([, count]) => count),
+                        backgroundColor: colors,
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 8,
+                                usePointStyle: true,
+                                font: { size: 10 }
+                            }
+                        }
+                    }
                 }
-                trophyStats[tournament.trophy].count++;
-                trophyStats[tournament.trophy].data.push(tournament);
-                
-                if (!trophyStats[tournament.trophy].players[tournament.name]) {
-                    trophyStats[tournament.trophy].players[tournament.name] = 0;
-                }
-                trophyStats[tournament.trophy].players[tournament.name]++;
             });
+        }
+    });
 
-            const trophyIcons = {
-                'Petty Cup': '🏆',
-                'COW/UCOW': '🐄',
-                'COW': '🐄',
-                'UCOW': '👑',
-                'TAMC': '🏕️',
-                'SUC': '⬆️',
-                'Brycehurst': '🏌️',
-                'Paultz': '🍺'
-            };
+    // Create Champion Performance Over Time chart
+    createPerformanceChart();
+}
 
-            const trophyClasses = {
-                'Petty Cup': 'petty-cup',
-                'COW/UCOW': 'cow-ucow',
-                'COW': 'cow-ucow',
-                'UCOW': 'cow-ucow',
-                'TAMC': 'tamc',
-                'SUC': 'suc',
-                'Brycehurst': 'brycehurst',
-                'Paultz': 'paultz'
-            };
+function createPerformanceChart() {
+    const playerStats = {};
+    const years = [];
+    
+    // Get all years from data
+    championshipData.forEach(tournament => {
+        const year = new Date(tournament.date).getFullYear();
+        if (!years.includes(year)) {
+            years.push(year);
+        }
+        if (!playerStats[tournament.name]) {
+            playerStats[tournament.name] = {};
+        }
+        if (!playerStats[tournament.name][year]) {
+            playerStats[tournament.name][year] = 0;
+        }
+        playerStats[tournament.name][year]++;
+    });
 
-            const cardsHtml = Object.entries(trophyStats).map(([trophy, stats]) => {
-                const topPlayer = Object.entries(stats.players)
-                    .sort(([,a], [,b]) => b - a)[0];
-                
-                return `
-                    <div class="trophy-card ${trophyClasses[trophy] || ''}">
-                        <h3>${trophyIcons[trophy] || '🏆'} ${trophy}</h3>
-                        <div class="trophy-stats">
-                            <div class="trophy-total">${stats.count}</div>
-                            <div class="trophy-subtitle">Total Championships</div>
-                        </div>
-                        <div class="trophy-stats">
-                            <div style="font-weight: 600; color: #1e3c72; margin-bottom: 5px;">
-                                Leading Champion
-                            </div>
-                            <div style="color: #4CAF50; font-weight: 600;">
-                                ${topPlayer ? `${topPlayer[0]} (${topPlayer[1]})` : 'N/A'}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+    years.sort();
+    
+    const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FF6B6B', '#4ECDC4', '#95A5A6'];
+    
+    // Only include players with significant wins
+    const significantPlayers = Object.entries(playerStats)
+        .filter(([player, yearData]) => Object.values(yearData).reduce((a, b) => a + b, 0) >= 2)
+        .sort(([,a], [,b]) => Object.values(b).reduce((x, y) => x + y, 0) - Object.values(a).reduce((x, y) => x + y, 0));
+
+    const datasets = significantPlayers.map(([player, yearData], index) => ({
+        label: player,
+        data: years.map(year => yearData[year] || 0),
+        borderColor: colors[index % colors.length],
+        backgroundColor: colors[index % colors.length] + '20',
+        tension: 0.3,
+        fill: false,
+        pointRadius: 4,
+        pointHoverRadius: 6
+    }));
+
+    const ctx = document.getElementById('performanceChart');
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 15,
+                            font: { size: 11 }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        },
+                        title: {
+                            display: true,
+                            text: 'Championships Won'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+Step 2: Add the CSS Styling
+Find the CSS section and add this styling before the closing </style> tag:
+.performance-card {
+    grid-column: 1 / -1;
+    margin-top: 20px;
+}
+
+.performance-chart {
+    height: 400px;
+    margin-top: 20px;
+}
+
+.trophy-card .chart-container.small-chart {
+    height: 200px;
+    margin-top: 15px;
+}
+
+.trophy-total {
+    font-size: 28px;
+    font-weight: 700;
+    color: #4CAF50;
+    margin: 10px 0 5px 0;
+}
+
+.trophy-subtitle {
+    color: #666;
+    font-size: 13px;
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+.trophy-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
 
             document.getElementById('trophyCards').innerHTML = cardsHtml;
         }
