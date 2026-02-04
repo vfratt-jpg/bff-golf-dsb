@@ -488,7 +488,7 @@
 
             async loadData() {
                 try {
-                    const response = await fetch('data/championships.json');
+                    const response = await fetch('./data/championships.json');
                     this.tournaments = await response.json();
                     console.log('Analytics data loaded:', this.tournaments.length, 'tournaments');
                 } catch (error) {
