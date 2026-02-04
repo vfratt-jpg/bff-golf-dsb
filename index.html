@@ -461,8 +461,7 @@
             <!-- Trophy cards will be populated by JavaScript -->
         </div>
     </div>
-
-    <script>
+<script>
         let championshipData = [];
 
         // Load championship data
@@ -473,6 +472,7 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 championshipData = await response.json();
+                console.log(`Data loaded: ${championshipData.length} records`);
                 
                 // Initialize dashboard
                 updateDashboardStats();
