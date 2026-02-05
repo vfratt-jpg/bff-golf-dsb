@@ -548,45 +548,45 @@
         }
 
         function createTrophyChart() {
-            const trophyStats = {};
-            
-            championshipData.forEach(tournament => {
-                if (!trophyStats[tournament.trophy]) {
-                    trophyStats[tournament.trophy] = 0;
-                }
-                trophyStats[tournament.trophy]++;
-            });
+    const trophyStats = {};
+    
+    championshipData.forEach(tournament => {
+        if (!trophyStats[tournament.trophy]) {
+            trophyStats[tournament.trophy] = 0;
+        }
+        trophyStats[tournament.trophy]++;
+    });
 
-            const ctx = document.getElementById('trophyChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: Object.keys(trophyStats),
-                    datasets: [{
-                        data: Object.values(trophyStats),
-                        backgroundColor: [
-                            '#FFD700', '#4CAF50', '#2196F3', '#FF9800', 
-                            '#9C27B0', '#FF5722', '#795548', '#607D8B'
-                        ],
-                        borderWidth: 2,
-                        borderColor: '#fff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                padding: 15,
-                                usePointStyle: true
-                            }
-                        }
+    const ctx = document.getElementById('trophyChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(trophyStats).map(trophy => `${trophy} (${trophyStats[trophy]})`),
+            datasets: [{
+                data: Object.values(trophyStats),
+                backgroundColor: [
+                    '#FFD700', '#4CAF50', '#2196F3', '#FF9800', 
+                    '#9C27B0', '#FF5722', '#795548', '#607D8B'
+                ],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 15,
+                        usePointStyle: true
                     }
                 }
-            });
+            }
         }
+    });
+}
 
         function displayRecentTournaments() {
             const sortedData = [...championshipData]
@@ -680,39 +680,39 @@
             document.getElementById('trophyCards').innerHTML = cardsHtml + performanceCardHtml;
 
             // Create individual donut charts for each trophy
-            Object.entries(trophyStats).forEach(([trophy, stats], index) => {
-                const chartId = `chart-${trophy.replace(/[^a-zA-Z0-9]/g, '')}`;
-                const ctx = document.getElementById(chartId);
-                if (ctx) {
-                    const playerData = Object.entries(stats.players).sort(([,a], [,b]) => b - a);
-                    new Chart(ctx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: playerData.map(([name]) => name),
-                            datasets: [{
-                                data: playerData.map(([, count]) => count),
-                                backgroundColor: colors,
-                                borderWidth: 2,
-                                borderColor: '#fff'
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    position: 'bottom',
-                                    labels: {
-                                        padding: 8,
-                                        usePointStyle: true,
-                                        font: { size: 10 }
-                                    }
-                                }
-                            }
+Object.entries(trophyStats).forEach(([trophy, stats], index) => {
+    const chartId = `chart-${trophy.replace(/[^a-zA-Z0-9]/g, '')}`;
+    const ctx = document.getElementById(chartId);
+    if (ctx) {
+        const playerData = Object.entries(stats.players).sort(([,a], [,b]) => b - a);
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: playerData.map(([name, count]) => `${name} (${count})`),
+                datasets: [{
+                    data: playerData.map(([, count]) => count),
+                    backgroundColor: colors,
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 8,
+                            usePointStyle: true,
+                            font: { size: 10 }
                         }
-                    });
+                    }
                 }
-            });
+            }
+        });
+    }
+});
 
             // Create Champion Performance Over Time chart
             createPerformanceChart();
