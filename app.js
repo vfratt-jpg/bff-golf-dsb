@@ -236,16 +236,18 @@ class GolfDashboard {
             this.charts.trophyChart.destroy();
         }
 
+        const colors = [
+            '#FFD700', '#4CAF50', '#FF9800', '#2196F3', 
+            '#9C27B0', '#FF5722', '#795548', '#607D8B'
+        ];
+
         this.charts.trophyChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: Object.keys(trophyCounts),
                 datasets: [{
                     data: Object.values(trophyCounts),
-                    backgroundColor: [
-                        '#FFD700', '#8BC34A', '#FF5722', '#FF9800',
-                        '#4CAF50', '#2196F3', '#9C27B0', '#795548'
-                    ],
+                    backgroundColor: colors.slice(0, Object.keys(trophyCounts).length),
                     borderWidth: 2,
                     borderColor: '#fff'
                 }]
@@ -257,10 +259,22 @@ class GolfDashboard {
                     legend: {
                         position: 'bottom',
                         labels: {
-                            padding: 15,
+                            padding: 0"color:#005CC5">15,
                             usePointStyle: true,
-                            font: {
-                                size: 12
+                            generateLabels: function(chart) {
+                                const data = chart.data;
+                                return data.labels.map((label, i) => {
+                                    const count = data.datasets[0].data[i];
+                                    return {
+                                        text: `${label} (${count})`,
+                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                        strokeStyle: data.datasets[0].borderColor,
+                                        lineWidth: data.datasets[0].borderWidth,
+                                        pointStyle: 'circle',
+                                        hidden: false,
+                                        index: i
+                                    };
+                                });
                             }
                         }
                     }
@@ -285,6 +299,12 @@ class GolfDashboard {
         const players = [...new Set(this.tournaments.map(t => t.name))];
         const years = Object.keys(yearlyData).sort();
 
+        // Calculate total wins for each player
+        const playerTotals = {};
+        this.tournaments.forEach(t => {
+            playerTotals[t.name] = (playerTotals[t.name] || 0) + 1;
+        });
+
         // Create datasets for each player
         const datasets = players.map((player, index) => {
             const colors = [
@@ -293,7 +313,7 @@ class GolfDashboard {
             ];
             
             return {
-                label: player,
+                label: `${player} (${playerTotals[player]})`,
                 data: years.map(year => yearlyData[year][player] || 0),
                 borderColor: colors[index % colors.length],
                 backgroundColor: colors[index % colors.length] + '20',
@@ -321,7 +341,7 @@ class GolfDashboard {
                         position: 'top',
                         labels: {
                             usePointStyle: true,
-                            padding: 15,
+                            padding: 0"color:#005CC5">15,
                             font: {
                                 size: 11
                             }
@@ -361,7 +381,7 @@ class GolfDashboard {
                     <div class="player-rank">${index + 1}</div>
                     <div class="player-name">${name}</div>
                 </div>
-                <div class="player-titles">${count} ${count === 1 ? 'title' : 'titles'}</div>
+                <div class="player-titles">${count} titles</div>
             </li>
         `).join('');
     }
@@ -373,80 +393,107 @@ class GolfDashboard {
         // Sort tournaments by date (most recent first)
         const recentTournaments = [...this.tournaments]
             .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .slice(0, 5);
+            .slice(0, 10);
 
-        container.innerHTML = recentTournaments.map(t => `
+        container.innerHTML = recentTournaments.map(tournament => `
             <div class="tournament-item">
-                <div class="tournament-date">${this.formatDate(t.date)}</div>
-                <div class="tournament-title">${t.trophy} Championship</div>
+                <div class="tournament-date">${this.formatDate(tournament.date)}</div>
+                <div class="tournament-title">${tournament.name} - ${tournament.trophy}</div>
                 <div class="tournament-details">
-                    <strong>${t.name}</strong> - ${t.course} (${t.score})
-                    ${t.history ? `<br><em>${t.history}</em>` : ''}
+                    ${tournament.course} | Score: ${tournament.score}
+                    ${tournament.history ? `<br><em>${tournament.history}</em>` : ''}
                 </div>
             </div>
         `).join('');
     }
 
     renderTrophyCards() {
-        const trophyTypes = [
-            { key: 'Petty Cup', id: 'pettyCup', name: 'Petty Cup' },
-            { key: 'COW/UCOW', id: 'cowUcow', name: 'COW/UCOW' },
-            { key: 'Paultz', id: 'paultz', name: 'Paultz' },
-            { key: 'TAMC', id: 'tamc', name: 'TAMC' },
-            { key: 'COW', id: 'cow', name: 'COW' },
-            { key: 'SUC', id: 'suc', name: 'SUC' },
-            { key: 'UCOW', id: 'ucow', name: 'UCOW' },
-            { key: 'Brycehurst', id: 'brycehurst', name: 'Brycehurst' }
-        ];
-
-        trophyTypes.forEach(trophy => {
-            this.renderTrophyCard(trophy);
+        const trophyTypes = ['Petty Cup', 'COW/UCOW', 'Paultz', 'TAMC', 'COW', 'SUC', 'UCOW', 'Brycehurst'];
+        
+        trophyTypes.forEach(trophyType => {
+            this.renderIndividualTrophyCard(trophyType);
         });
     }
 
-    renderTrophyCard(trophy) {
-        // Filter tournaments for this trophy type
-        const trophyTournaments = this.tournaments.filter(t => t.trophy === trophy.key);
+    renderIndividualTrophyCard(trophyType) {
+        const trophyData = this.tournaments.filter(t => t.trophy === trophyType);
         
+        if (trophyData.length === 0) return;
+
+        // Count winners
+        const winnerCounts = {};
+        trophyData.forEach(t => {
+            winnerCounts[t.name] = (winnerCounts[t.name] || 0) + 1;
+        });
+
         // Update total count
-        const totalElement = document.getElementById(`${trophy.id}Total`);
+        const totalElement = document.getElementById(this.getTrophyTotalId(trophyType));
         if (totalElement) {
-            totalElement.textContent = trophyTournaments.length;
+            totalElement.textContent = `${trophyData.length}`;
         }
 
         // Render chart
-        this.renderTrophyChart(trophy.id, trophyTournaments, trophy.name);
+        const chartId = this.getTrophyChartId(trophyType);
+        const canvas = document.getElementById(chartId);
+        if (canvas) {
+            this.createTrophyChart(chartId, winnerCounts, trophyType);
+        }
     }
 
-    renderTrophyChart(chartId, tournaments, trophyName) {
-        const ctx = document.getElementById(`${chartId}Chart`);
-        if (!ctx || tournaments.length === 0) return;
+    getTrophyTotalId(trophy) {
+        const idMap = {
+            'Petty Cup': 'pettyCupTotal',
+            'COW/UCOW': 'cowUcowTotal',
+            'Paultz': 'paultzTotal',
+            'TAMC': 'tamcTotal',
+            'COW': 'cowTotal',
+            'SUC': 'sucTotal',
+            'UCOW': 'ucowTotal',
+            'Brycehurst': 'brycehurstTotal'
+        };
+        return idMap[trophy];
+    }
 
-        // Count wins per player
-        const playerCounts = {};
-        tournaments.forEach(t => {
-            playerCounts[t.name] = (playerCounts[t.name] || 0) + 1;
-        });
+    getTrophyChartId(trophy) {
+        const idMap = {
+            'Petty Cup': 'pettyCupChart',
+            'COW/UCOW': 'cowUcowChart',
+            'Paultz': 'paultzChart',
+            'TAMC': 'tamcChart',
+            'COW': 'cowChart',
+            'SUC': 'sucChart',
+            'UCOW': 'ucowChart',
+            'Brycehurst': 'brycehurstChart'
+        };
+        return idMap[trophy];
+    }
 
-        // Sort by count
-        const sortedPlayers = Object.entries(playerCounts)
-            .sort(([,a], [,b]) => b - a);
+    createTrophyChart(chartId, winnerCounts, trophyType) {
+        const ctx = document.getElementById(chartId);
+        if (!ctx) return;
 
         // Destroy existing chart
-        if (this.charts[`${chartId}Chart`]) {
-            this.charts[`${chartId}Chart`].destroy();
+        if (this.charts[chartId]) {
+            this.charts[chartId].destroy();
         }
 
-        this.charts[`${chartId}Chart`] = new Chart(ctx, {
-            type: 'bar',
+        const sortedWinners = Object.entries(winnerCounts)
+            .sort(([,a], [,b]) => b - a);
+
+        const colors = [
+            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+            '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF'
+        ];
+
+        this.charts[chartId] = new Chart(ctx, {
+            type: 'doughnut',
             data: {
-                labels: sortedPlayers.map(([name]) => name.split(' ')[0]), // First name only
+                labels: sortedWinners.map(([name]) => name),
                 datasets: [{
-                    label: `${trophyName} Wins`,
-                    data: sortedPlayers.map(([, count]) => count),
-                    backgroundColor: '#4CAF50',
-                    borderColor: '#2E7D32',
-                    borderWidth: 1
+                    data: sortedWinners.map(([, count]) => count),
+                    backgroundColor: colors.slice(0, sortedWinners.length),
+                    borderWidth: 2,
+                    borderColor: '#fff'
                 }]
             },
             options: {
@@ -454,21 +501,41 @@ class GolfDashboard {
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            maxRotation: 45,
+                        position: 'bottom',
+                        labels: {
+                            padding: 0"color:#005CC5">8,
+                            usePointStyle: true,
                             font: {
                                 size: 10
+                            },
+                            generateLabels: function(chart) {
+                                const data = chart.data;
+                                if (data.labels.length && data.datasets.length) {
+                                    return data.labels.map((label, i) => {
+                                        const count = data.datasets[0].data[i];
+                                        return {
+                                            text: `${label} (${count})`,
+                                            fillStyle: data.datasets[0].backgroundColor[i],
+                                            strokeStyle: data.datasets[0].borderColor,
+                                            lineWidth: data.datasets[0].borderWidth,
+                                            pointStyle: 'circle',
+                                            hidden: false,
+                                            index: i
+                                        };
+                                    });
+                                }
+                                return [];
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.parsed;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = ((value / total) * 100).toFixed(1);
+                                return `${label}: ${value} wins (${percentage}%)`;
                             }
                         }
                     }
@@ -481,39 +548,38 @@ class GolfDashboard {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', {
             year: 'numeric',
-            month: 'short',
+            month: 'long',
             day: 'numeric'
         });
+    }
+
+    setupServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registered:', registration);
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
     }
 
     handleError(error) {
         console.error('Dashboard error:', error);
         
         // Show user-friendly error message
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'error';
-        errorDiv.innerHTML = `
-            <h3>⚠️ Unable to Load Dashboard</h3>
-            <p>There was a problem loading the tournament data. Please check your connection and try again.</p>
-            <button class="btn btn-primary" onclick="location.reload()">Retry</button>
+        const errorContainer = document.createElement('div');
+        errorContainer.className = 'error-message';
+        errorContainer.innerHTML = `
+            <div class="error-content">
+                <h3>⚠️ Unable to Load Dashboard</h3>
+                <p>There was a problem loading the championship data. Please check your internet connection and try refreshing the page.</p>
+                <button onclick="location.reload()" class="btn btn-primary">Refresh Page</button>
+            </div>
         `;
         
-        const container = document.querySelector('.container');
-        if (container) {
-            container.innerHTML = '';
-            container.appendChild(errorDiv);
-        }
-    }
-
-    async setupServiceWorker() {
-        if ('serviceWorker' in navigator) {
-            try {
-                await navigator.serviceWorker.register('service-worker.js');
-                console.log('Service Worker registered successfully');
-            } catch (error) {
-                console.warn('Service Worker registration failed:', error);
-            }
-        }
+        document.body.appendChild(errorContainer);
     }
 
     // Modal functions
@@ -521,6 +587,9 @@ class GolfDashboard {
         const modal = document.getElementById('addTournamentModal');
         if (modal) {
             modal.style.display = 'block';
+            // Set today's date as default
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('tournamentDate').value = today;
         }
     }
 
@@ -528,19 +597,16 @@ class GolfDashboard {
         const modal = document.getElementById('addTournamentModal');
         if (modal) {
             modal.style.display = 'none';
-        }
-        
-        // Reset form
-        const form = document.getElementById('tournamentForm');
-        if (form) {
-            form.reset();
+            // Reset form
+            const form = document.getElementById('tournamentForm');
+            if (form) form.reset();
         }
     }
 
-    async handleFormSubmit(e) {
-        e.preventDefault();
+    handleFormSubmit(event) {
+        event.preventDefault();
         
-        const formData = new FormData(e.target);
+        const formData = new FormData(event.target);
         const newTournament = {
             name: formData.get('playerName'),
             date: formData.get('tournamentDate'),
@@ -551,7 +617,7 @@ class GolfDashboard {
         };
 
         // Add to tournaments array
-        this.tournaments.push(newTournament);
+        this.tournaments.unshift(newTournament);
         
         // Update cache
         this.setCachedData(this.tournaments);
@@ -569,19 +635,7 @@ class GolfDashboard {
     showSuccessMessage(message) {
         const successDiv = document.createElement('div');
         successDiv.className = 'success-message';
-        successDiv.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #4CAF50;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            z-index: 10000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        `;
         successDiv.textContent = message;
-        
         document.body.appendChild(successDiv);
         
         setTimeout(() => {
@@ -590,51 +644,40 @@ class GolfDashboard {
     }
 
     exportData() {
-        const dataStr = JSON.stringify(this.tournaments, null, 2);
-        const dataBlob = new Blob([dataStr], { type: 'application/json' });
-        
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(dataBlob);
-        link.download = `golf-championships-${new Date().toISOString().split('T')[0]}.json`;
-        link.click();
-    }
-}
-
-// Global functions for HTML onclick handlers
-function openAddTournamentModal() {
-    if (window.dashboard) {
-        window.dashboard.openAddTournamentModal();
-    }
-}
-
-function closeAddTournamentModal() {
-    if (window.dashboard) {
-        window.dashboard.closeAddTournamentModal();
-    }
-}
-
-function exportData() {
-    if (window.dashboard) {
-        window.dashboard.exportData();
+        try {
+            const dataStr = JSON.stringify(this.tournaments, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `golf_championships_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Export failed:', error);
+            alert('Failed to export data. Please try again.');
+        }
     }
 }
 
 // Initialize dashboard when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    window.dashboard = new GolfDashboard();
+let dashboard;
+
+document.addEventListener('DOMContentLoaded', function() {
+    dashboard = new GolfDashboard();
 });
 
-// Handle page visibility changes for battery optimization
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        // Pause animations and reduce activity when page is hidden
-        console.log('Page hidden - reducing activity');
-    } else {
-        // Resume normal activity when page is visible
-        console.log('Page visible - resuming activity');
-        if (window.dashboard) {
-            window.dashboard.refreshData();
-        }
-    }
-});
-Add enhanced JavaScript application logic
+// Global functions for HTML onclick handlers
+function openAddTournamentModal() {
+    if (dashboard) dashboard.openAddTournamentModal();
+}
+
+function closeAddTournamentModal() {
+    if (dashboard) dashboard.closeAddTournamentModal();
+}
+
+function exportData() {
+    if (dashboard) dashboard.exportData();
+}
