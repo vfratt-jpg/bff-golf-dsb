@@ -752,6 +752,437 @@
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        // Golf Dashboard Application with embedded JavaScript
+        let championshipData = [];
+        let charts = {};
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+        });
+
+        async function loadData() {
+            try {
+                const response = await fetch('./data/championships.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                championshipData = await response.json();
+                console.log('Data loaded successfully:', championshipData.length, 'records');
+                renderDashboard();
+            } catch (error) {
+                console.error('Failed to load data:', error);
+                showError('Failed to load championship data. Please check if the data file exists.');
+            }
+        }
+
+        function renderDashboard() {
+            updateStats();
+            renderCharts();
+            renderLeaderboard();
+            renderRecentTournaments();
+            renderTrophyCards();
+        }
+
+        function updateStats() {
+            const totalTournaments = championshipData.length;
+            const uniqueChampions = [...new Set(championshipData.map(t => t.name))].length;
+            const uniqueTrophies = [...new Set(championshipData.map(t => t.trophy))].length;
+            
+            // Find latest tournament
+            const sortedByDate = [...championshipData].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const latest = sortedByDate[0];
+
+            document.getElementById('totalTournaments').textContent = totalTournaments;
+            document.getElementById('activeChampions').textContent = uniqueChampions;
+            document.getElementById('trophyTypes').textContent = uniqueTrophies;
+            
+            if (latest) {
+                document.getElementById('latestChampion').textContent = latest.name;
+                document.getElementById('latestDate').textContent = new Date(latest.date).toLocaleDateString();
+            }
+        }
+
+        function renderCharts() {
+            renderTrophyDistributionChart();
+            renderPerformanceChart();
+        }
+
+        function renderTrophyDistributionChart() {
+            const ctx = document.getElementById('trophyChart');
+            if (!ctx) return;
+
+            const trophyCounts = {};
+            championshipData.forEach(t => {
+                trophyCounts[t.trophy] = (trophyCounts[t.trophy] || 0) + 1;
+            });
+
+            const colors = [
+                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF'
+            ];
+
+            if (charts.trophyChart) {
+                charts.trophyChart.destroy();
+            }
+
+            charts.trophyChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(trophyCounts),
+                    datasets: [{
+                        data: Object.values(trophyCounts),
+                        backgroundColor: colors.slice(0, Object.keys(trophyCounts).length),
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                generateLabels: function(chart) {
+                                    const data = chart.data;
+                                    return data.labels.map((label, i) => {
+                                        const count = data.datasets[0].data[i];
+                                        return {
+                                            text: `${label} (${count})`,
+                                            fillStyle: data.datasets[0].backgroundColor[i],
+                                            strokeStyle: data.datasets[0].borderColor,
+                                            lineWidth: data.datasets[0].borderWidth,
+                                            pointStyle: 'circle',
+                                            hidden: false,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderPerformanceChart() {
+            const ctx = document.getElementById('performanceChart');
+            if (!ctx) return;
+
+            // Group tournaments by year and player
+            const yearlyData = {};
+            championshipData.forEach(t => {
+                const year = new Date(t.date).getFullYear();
+                if (!yearlyData[year]) yearlyData[year] = {};
+                yearlyData[year][t.name] = (yearlyData[year][t.name] || 0) + 1;
+            });
+
+            const players = [...new Set(championshipData.map(t => t.name))];
+            const years = Object.keys(yearlyData).sort();
+
+            const colors = [
+                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF'
+            ];
+
+            const datasets = players.map((player, index) => ({
+                label: player,
+                data: years.map(year => yearlyData[year][player] || 0),
+                borderColor: colors[index % colors.length],
+                backgroundColor: colors[index % colors.length] + '20',
+                tension: 0.4,
+                fill: false
+            }));
+
+            if (charts.performanceChart) {
+                charts.performanceChart.destroy();
+            }
+
+            charts.performanceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 15,
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderLeaderboard() {
+            const leaderboard = document.getElementById('leaderboard');
+            if (!leaderboard) return;
+
+            const championCounts = {};
+            championshipData.forEach(t => {
+                championCounts[t.name] = (championCounts[t.name] || 0) + 1;
+            });
+
+            const sortedChampions = Object.entries(championCounts)
+                .sort(([,a], [,b]) => b - a);
+
+            leaderboard.innerHTML = sortedChampions.map(([name, count], index) => `
+                <li class="leaderboard-item">
+                    <div class="player-info">
+                        <div class="player-rank">${index + 1}</div>
+                        <div class="player-name">${name}</div>
+                    </div>
+                    <div class="player-titles">${count} titles</div>
+                </li>
+            `).join('');
+        }
+
+        function renderRecentTournaments() {
+            const container = document.getElementById('recentTournaments');
+            if (!container) return;
+
+            const recent = [...championshipData]
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 5);
+
+            container.innerHTML = recent.map(tournament => `
+                <div class="tournament-item">
+                    <div class="tournament-date">${new Date(tournament.date).toLocaleDateString()}</div>
+                    <div class="tournament-title">${tournament.trophy} Champion</div>
+                    <div class="tournament-details">
+                        <strong>${tournament.name}</strong> - ${tournament.course} (${tournament.score})
+                        ${tournament.history ? `<br><em>${tournament.history}</em>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderTrophyCards() {
+            const trophyStats = {};
+            
+            championshipData.forEach(tournament => {
+                if (!trophyStats[tournament.trophy]) {
+                    trophyStats[tournament.trophy] = {
+                        count: 0,
+                        players: {},
+                        data: []
+                    };
+                }
+                trophyStats[tournament.trophy].count++;
+                trophyStats[tournament.trophy].data.push(tournament);
+                
+                if (!trophyStats[tournament.trophy].players[tournament.name]) {
+                    trophyStats[tournament.trophy].players[tournament.name] = 0;
+                }
+                trophyStats[tournament.trophy].players[tournament.name]++;
+            });
+
+            // Update trophy totals
+            document.getElementById('pettyCupTotal').textContent = trophyStats['Petty Cup']?.count || 0;
+            document.getElementById('cowUcowTotal').textContent = trophyStats['COW/UCOW']?.count || 0;
+            document.getElementById('paultzTotal').textContent = trophyStats['Paultz']?.count || 0;
+            document.getElementById('tamcTotal').textContent = trophyStats['TAMC']?.count || 0;
+            document.getElementById('cowTotal').textContent = trophyStats['COW']?.count || 0;
+            document.getElementById('sucTotal').textContent = trophyStats['SUC']?.count || 0;
+            document.getElementById('ucowTotal').textContent = trophyStats['UCOW']?.count || 0;
+            document.getElementById('brycehurstTotal').textContent = trophyStats['Brycehurst']?.count || 0;
+
+            // Render individual trophy charts
+            Object.entries(trophyStats).forEach(([trophy, stats]) => {
+                renderTrophyChart(trophy, stats);
+            });
+        }
+
+        function renderTrophyChart(trophy, stats) {
+            const chartIds = {
+                'Petty Cup': 'pettyCupChart',
+                'COW/UCOW': 'cowUcowChart',
+                'Paultz': 'paultzChart',
+                'TAMC': 'tamcChart',
+                'COW': 'cowChart',
+                'SUC': 'sucChart',
+                'UCOW': 'ucowChart',
+                'Brycehurst': 'brycehurstChart'
+            };
+
+            const chartId = chartIds[trophy];
+            if (!chartId) return;
+
+            const ctx = document.getElementById(chartId);
+            if (!ctx) return;
+
+            const colors = [
+                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF'
+            ];
+
+            if (charts[chartId]) {
+                charts[chartId].destroy();
+            }
+
+            charts[chartId] = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(stats.players),
+                    datasets: [{
+                        data: Object.values(stats.players),
+                        backgroundColor: colors.slice(0, Object.keys(stats.players).length),
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 10,
+                                usePointStyle: true,
+                                font: { size: 10 },
+                                generateLabels: function(chart) {
+                                    const data = chart.data;
+                                    return data.labels.map((label, i) => {
+                                        const count = data.datasets[0].data[i];
+                                        return {
+                                            text: `${label} (${count})`,
+                                            fillStyle: data.datasets[0].backgroundColor[i],
+                                            strokeStyle: data.datasets[0].borderColor,
+                                            lineWidth: data.datasets[0].borderWidth,
+                                            pointStyle: 'circle',
+                                            hidden: false,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Modal functions
+        function openAddTournamentModal() {
+            const modal = document.getElementById('addTournamentModal');
+            modal.style.display = 'block';
+            
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('tournamentDate').value = today;
+        }
+
+        function closeAddTournamentModal() {
+            const modal = document.getElementById('addTournamentModal');
+            modal.style.display = 'none';
+            document.getElementById('tournamentForm').reset();
+        }
+
+        // Form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('tournamentForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(form);
+                    const newTournament = {
+                        name: formData.get('playerName'),
+                        date: formData.get('tournamentDate'),
+                        trophy: formData.get('trophyType'),
+                        course: formData.get('courseName'),
+                        score: parseInt(formData.get('score')),
+                        history: formData.get('history') || ''
+                    };
+
+                    // Add to data
+                    championshipData.unshift(newTournament);
+                    
+                    // Re-render dashboard
+                    renderDashboard();
+                    
+                    // Close modal
+                    closeAddTournamentModal();
+                    
+                    // Show success notification
+                    showNotification('Tournament added successfully!', 'success');
+                });
+            }
+        });
+
+        // Export function
+        function exportData() {
+            const dataStr = JSON.stringify(championshipData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'golf_championships.json';
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            showNotification('Data exported successfully!', 'success');
+        }
+
+        // Utility functions
+        function showError(message) {
+            const container = document.querySelector('.container');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.textContent = message;
+            container.insertBefore(errorDiv, container.firstChild);
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span>${message}</span>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // Close modal on outside click
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('addTournamentModal');
+            if (e.target === modal) {
+                closeAddTournamentModal();
+            }
+        });
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeAddTournamentModal();
+            }
+        });
+    </script>
 </body>
 </html>
