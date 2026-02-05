@@ -405,6 +405,7 @@
         .trophy-card.suc { border-left-color: #2196F3; }
         .trophy-card.ucow { border-left-color: #9C27B0; }
         .trophy-card.brycehurst { border-left-color: #795548; }
+        .trophy-card.moose { border-left-color: #8B4513; }
 
         .loading {
             display: flex;
@@ -598,103 +599,9 @@
             </div>
         </div>
 
-        <!-- Individual Trophy Cards -->
-        <div class="trophy-cards-grid">
-            <!-- Petty Cup Card -->
-            <div class="card trophy-card petty-cup">
-                <h3>🏆 Petty Cup Winners</h3>
-                <div class="trophy-stats">
-                    <div class="trophy-total" id="pettyCupTotal">0</div>
-                    <div class="trophy-subtitle">Flagship Multi-Round Tournament</div>
-                </div>
-                <div class="chart-container small-chart">
-                    <canvas id="pettyCupChart"></canvas>
-                </div>
-            </div>
-
-            <!-- COW/UCOW Card -->
-            <div class="card trophy-card cow-ucow">
-                <h3>🐄 COW/UCOW Winners</h3>
-                <div class="trophy-stats">
-                    <div class="trophy-total" id="cowUcowTotal">0</div>
-                    <div class="trophy-subtitle">Most Active Championship</div>
-                </div>
-                <div class="chart-container small-chart">
-                    <canvas id="cowUcowChart"></canvas>
-                </div>
-            </div>
-
-            <!-- Paultz Card -->
-            <div class="card trophy-card paultz">
-                <h3>🍺 Paultz Winners</h3>
-                <div class="trophy-stats">
-                    <div class="trophy-total" id="paultzTotal">0</div>
-                    <div class="trophy-subtitle">Historic Mill Creek Tradition</div>
-                </div>
-                <div class="chart-container small-chart">
-                    <canvas id="paultzChart"></canvas>
-                </div>
-            </div>
-
-            <!-- TAMC Card -->
-            <div class="card trophy-card tamc">
-                <h3>🏕️ TAMC Winners</h3>
-                <div class="trophy-stats">
-                    <div class="trophy-total" id="tamcTotal">0</div>
-                    <div class="trophy-subtitle">Twice as Much Cup</div>
-                </div>
-                <div class="chart-container small-chart">
-                    <canvas id="tamcChart"></canvas>
-                </div>
-            </div>
-
-            <!-- COW Card -->
-            <div class="card trophy-card cow">
-                <h3>🐄 COW Winners</h3>
-                <div class="trophy-stats">
-                    <div class="trophy-total" id="cowTotal">0</div>
-                    <div class="trophy-subtitle">Original Championship Format</div>
-                </div>
-                <div class="chart-container small-chart">
-                    <canvas id="cowChart"></canvas>
-                </div>
-            </div>
-
-            <!-- SUC Card -->
-            <div class="card trophy-card suc">
-                <h3>⬆️ SUC Winners</h3>
-                <div class="trophy-stats">
-                    <div class="trophy-total" id="sucTotal">0</div>
-                    <div class="trophy-subtitle">Straight Up Competition</div>
-                </div>
-                <div class="chart-container small-chart">
-                    <canvas id="sucChart"></canvas>
-                </div>
-            </div>
-
-            <!-- UCOW Card -->
-            <div class="card trophy-card ucow">
-                <h3>👑 UCOW Winners</h3>
-                <div class="trophy-stats">
-                    <div class="trophy-total" id="ucowTotal">0</div>
-                    <div class="trophy-subtitle">Ultimate Championship</div>
-                </div>
-                <div class="chart-container small-chart">
-                    <canvas id="ucowChart"></canvas>
-                </div>
-            </div>
-
-            <!-- Brycehurst Card -->
-            <div class="card trophy-card brycehurst">
-                <h3>🌟 Brycehurst Winner</h3>
-                <div class="trophy-stats">
-                    <div class="trophy-total" id="brycehurstTotal">0</div>
-                    <div class="trophy-subtitle">Invitational Format</div>
-                </div>
-                <div class="chart-container small-chart">
-                    <canvas id="brycehurstChart"></canvas>
-                </div>
-            </div>
+        <!-- Dynamic Trophy Cards -->
+        <div class="trophy-cards-grid" id="trophyCardsContainer">
+            <!-- Cards will be generated dynamically -->
         </div>
 
         <!-- Champion Performance Over Time Chart (Full Width) -->
@@ -742,7 +649,6 @@
                         <option value="COW">COW</option>
                         <option value="UCOW">UCOW</option>
                         <option value="Moose">Moose</option>
-                        </option> <!-- NEW TROPHY -->
                     </select>
                 </div>
                 <div class="form-group">
@@ -989,8 +895,11 @@
         }
 
         function renderTrophyCards() {
+            const container = document.getElementById('trophyCardsContainer');
+            if (!container) return;
+
+            // Calculate trophy statistics
             const trophyStats = {};
-            
             championshipData.forEach(tournament => {
                 if (!trophyStats[tournament.trophy]) {
                     trophyStats[tournament.trophy] = {
@@ -1008,37 +917,47 @@
                 trophyStats[tournament.trophy].players[tournament.name]++;
             });
 
-            // Update trophy totals
-            document.getElementById('pettyCupTotal').textContent = trophyStats['Petty Cup']?.count || 0;
-            document.getElementById('cowUcowTotal').textContent = trophyStats['COW/UCOW']?.count || 0;
-            document.getElementById('paultzTotal').textContent = trophyStats['Paultz']?.count || 0;
-            document.getElementById('tamcTotal').textContent = trophyStats['TAMC']?.count || 0;
-            document.getElementById('cowTotal').textContent = trophyStats['COW']?.count || 0;
-            document.getElementById('sucTotal').textContent = trophyStats['SUC']?.count || 0;
-            document.getElementById('ucowTotal').textContent = trophyStats['UCOW']?.count || 0;
-            document.getElementById('brycehurstTotal').textContent = trophyStats['Brycehurst']?.count || 0;
+            // Trophy icons and descriptions
+            const trophyInfo = {
+                'Petty Cup': { icon: '🏆', subtitle: 'Flagship Multi-Round Tournament', class: 'petty-cup' },
+                'COW/UCOW': { icon: '🐄', subtitle: 'Most Active Championship', class: 'cow-ucow' },
+                'Paultz': { icon: '🍺', subtitle: 'Historic Mill Creek Tradition', class: 'paultz' },
+                'TAMC': { icon: '🏕️', subtitle: 'Twice as Much Cup', class: 'tamc' },
+                'COW': { icon: '🐄', subtitle: 'Original Championship Format', class: 'cow' },
+                'SUC': { icon: '⬆️', subtitle: 'Straight Up Competition', class: 'suc' },
+                'UCOW': { icon: '👑', subtitle: 'Ultimate Championship', class: 'ucow' },
+                'Brycehurst': { icon: '🌟', subtitle: 'Invitational Format', class: 'brycehurst' },
+                'Moose': { icon: '🫎', subtitle: 'New Championship Trophy', class: 'moose' }
+            };
 
-            // Render individual trophy charts
+            // Generate cards HTML
+            const cardsHTML = Object.entries(trophyStats).map(([trophy, stats]) => {
+                const info = trophyInfo[trophy] || { icon: '🏆', subtitle: 'Championship Trophy', class: 'default' };
+                
+                return `
+                    <div class="trophy-card ${info.class}">
+                        <h3>${info.icon} ${trophy} Winners</h3>
+                        <div class="trophy-stats">
+                            <div class="trophy-total">${stats.count}</div>
+                            <div class="trophy-subtitle">${info.subtitle}</div>
+                        </div>
+                        <div class="chart-container small-chart">
+                            <canvas id="${trophy.replace(/[^a-zA-Z0-9]/g, '')}Chart"></canvas>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = cardsHTML;
+
+            // Render individual charts for each trophy
             Object.entries(trophyStats).forEach(([trophy, stats]) => {
                 renderTrophyChart(trophy, stats);
             });
         }
 
         function renderTrophyChart(trophy, stats) {
-            const chartIds = {
-                'Petty Cup': 'pettyCupChart',
-                'COW/UCOW': 'cowUcowChart',
-                'Paultz': 'paultzChart',
-                'TAMC': 'tamcChart',
-                'COW': 'cowChart',
-                'SUC': 'sucChart',
-                'UCOW': 'ucowChart',
-                'Brycehurst': 'brycehurstChart'
-            };
-
-            const chartId = chartIds[trophy];
-            if (!chartId) return;
-
+            const chartId = trophy.replace(/[^a-zA-Z0-9]/g, '') + 'Chart';
             const ctx = document.getElementById(chartId);
             if (!ctx) return;
 
