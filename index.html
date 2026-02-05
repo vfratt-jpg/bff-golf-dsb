@@ -249,6 +249,13 @@
             margin-bottom: 5px;
         }
 
+        .tournament-name {
+            font-weight: 600;
+            color: #4CAF50;
+            margin-bottom: 3px;
+            font-size: 15px;
+        }
+
         .tournament-details {
             font-size: 14px;
             color: #555;
@@ -711,6 +718,10 @@
             </div>
             <form id="tournamentForm">
                 <div class="form-group">
+                    <label for="tournamentName">Tournament Name *</label>
+                    <input type="text" id="tournamentName" name="tournamentName" required placeholder="e.g., Spring Championship 2024">
+                </div>
+                <div class="form-group">
                     <label for="playerName">Champion Name *</label>
                     <input type="text" id="playerName" name="playerName" required>
                 </div>
@@ -965,6 +976,7 @@
             container.innerHTML = recent.map(tournament => `
                 <div class="tournament-item">
                     <div class="tournament-date">${new Date(tournament.date).toLocaleDateString()}</div>
+                    ${tournament.tournamentName ? `<div class="tournament-name">${tournament.tournamentName}</div>` : ''}
                     <div class="tournament-title">${tournament.trophy} Champion</div>
                     <div class="tournament-details">
                         <strong>${tournament.name}</strong> - ${tournament.course} (${tournament.score})
@@ -1105,6 +1117,7 @@
                     
                     const formData = new FormData(form);
                     const newTournament = {
+                        tournamentName: formData.get('tournamentName'),
                         name: formData.get('playerName'),
                         date: formData.get('tournamentDate'),
                         trophy: formData.get('trophyType'),
