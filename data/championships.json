@@ -5,7 +5,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst No. 2",
     "score": 303,
-    "history": "2025 Petty Cup Champion"
+    "history": "2025 Petty Cup Champion",
+    "tournamentName": "2025 Petty Cup Championship"
   },
   {
     "name": "John Bart",
@@ -13,7 +14,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst No. 2",
     "score": 320,
-    "history": "2024 Petty Cup Champion"
+    "history": "2024 Petty Cup Champion",
+    "tournamentName": "2024 Petty Cup Championship"
   },
   {
     "name": "Vince Frattaroli",
@@ -21,7 +23,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": "2024 Paultz Champion"
+    "history": "2024 Paultz Champion",
+    "tournamentName": "2024 Paultz Championship"
   },
   {
     "name": "Dom Fabiilli",
@@ -29,7 +32,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": "2024 Paultz Champion"
+    "history": "2024 Paultz Champion",
+    "tournamentName": "2024 Paultz Championship"
   },
   {
     "name": "Ted Yatsko",
@@ -37,7 +41,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": "2024 Paultz Champion"
+    "history": "2024 Paultz Champion",
+    "tournamentName": "2024 Paultz Championship"
   },
   {
     "name": "Paul Dutko",
@@ -45,7 +50,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": "2024 Paultz Champion"
+    "history": "2024 Paultz Champion",
+    "tournamentName": "2024 Paultz Championship"
   },
   {
     "name": "Dom Fabiilli",
@@ -53,7 +59,8 @@
     "trophy": "TAMC",
     "course": "Stoneleigh Golf Club",
     "score": 86,
-    "history": ""
+    "history": "",
+    "tournamentName": "Fall TAMC 2023"
   },
   {
     "name": "Vince Frattaroli",
@@ -61,7 +68,8 @@
     "trophy": "TAMC",
     "course": "The Links at Gettysburg",
     "score": 85,
-    "history": ""
+    "history": "",
+    "tournamentName": "Fall TAMC 2023"
   },
   {
     "name": "Vince Frattaroli",
@@ -69,7 +77,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": "2023 Paultz Champion"
+    "history": "2023 Paultz Champion",
+    "tournamentName": "2023 Paultz Championship"
   },
   {
     "name": "Dom Fabiilli",
@@ -77,7 +86,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": "2023 Paultz Champion"
+    "history": "2023 Paultz Champion",
+    "tournamentName": "2023 Paultz Championship"
   },
   {
     "name": "Ted Yatsko",
@@ -85,7 +95,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": "2023 Paultz Champion"
+    "history": "2023 Paultz Champion",
+    "tournamentName": "2023 Paultz Championship"
   },
   {
     "name": "Paul Dutko",
@@ -93,7 +104,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": "2023 Paultz Champion"
+    "history": "2023 Paultz Champion",
+    "tournamentName": "2023 Paultz Championship"
   },
   {
     "name": "Jim Flanagan",
@@ -101,7 +113,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst No. 1",
     "score": 299,
-    "history": "2023 Petty Cup Champion"
+    "history": "2023 Petty Cup Champion",
+    "tournamentName": "2023 Petty Cup Championship"
   },
   {
     "name": "Ken Sympson",
@@ -109,7 +122,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst #1, 5, 4 & 6",
     "score": 284,
-    "history": ""
+    "history": "",
+    "tournamentName": "2022 Petty Cup Championship"
   },
   {
     "name": "Jim Flanagan",
@@ -117,7 +131,8 @@
     "trophy": "COW/UCOW",
     "course": "Firethorn CC",
     "score": 88,
-    "history": ""
+    "history": "",
+    "tournamentName": "Spring COW/UCOW 2022"
   },
   {
     "name": "Vince Frattaroli",
@@ -125,7 +140,8 @@
     "trophy": "TAMC",
     "course": "Firethorn CC",
     "score": 90,
-    "history": ""
+    "history": "",
+    "tournamentName": "Spring TAMC 2022"
   },
   {
     "name": "Jim Flanagan",
@@ -133,7 +149,8 @@
     "trophy": "SUC",
     "course": "Firethorn CC",
     "score": 88,
-    "history": ""
+    "history": "",
+    "tournamentName": "Spring SUC 2022"
   },
   {
     "name": "Vince Frattaroli",
@@ -141,7 +158,8 @@
     "trophy": "COW/UCOW",
     "course": "Carolina Lakes",
     "score": 77,
-    "history": ""
+    "history": "",
+    "tournamentName": "Spring COW/UCOW 2022"
   },
   {
     "name": "Vince Frattaroli",
@@ -149,7 +167,8 @@
     "trophy": "TAMC",
     "course": "Carolina Lakes",
     "score": 77,
-    "history": ""
+    "history": "",
+    "tournamentName": "Spring TAMC 2022"
   },
   {
     "name": "Vince Frattaroli",
@@ -157,7 +176,8 @@
     "trophy": "SUC",
     "course": "Carolina Lakes",
     "score": 77,
-    "history": ""
+    "history": "",
+    "tournamentName": "Spring SUC 2022"
   },
   {
     "name": "Paul Dutko",
@@ -165,7 +185,8 @@
     "trophy": "COW/UCOW",
     "course": "Pinehurst #6",
     "score": 81,
-    "history": "vs JB, Jim Sky & Vince"
+    "history": "vs JB, Jim Sky & Vince",
+    "tournamentName": "New Year COW/UCOW 2022"
   },
   {
     "name": "Vince Frattaroli",
@@ -173,7 +194,8 @@
     "trophy": "TAMC",
     "course": "Pinehurst #6",
     "score": 83,
-    "history": "First Ever Twice as Much Cup *See JB for Rules"
+    "history": "First Ever Twice as Much Cup *See JB for Rules",
+    "tournamentName": "Inaugural TAMC 2022"
   },
   {
     "name": "Ken Sympson",
@@ -181,7 +203,8 @@
     "trophy": "SUC",
     "course": "Pinehurst #6",
     "score": 79,
-    "history": "First Ever Strait Up Cup! *See Skyler for Rules"
+    "history": "First Ever Strait Up Cup! *See Skyler for Rules",
+    "tournamentName": "Inaugural SUC 2022"
   },
   {
     "name": "Jim Flanagan",
@@ -189,7 +212,8 @@
     "trophy": "COW/UCOW",
     "course": "Pinehurst #3",
     "score": 84,
-    "history": "vs Vince"
+    "history": "vs Vince",
+    "tournamentName": "Winter COW/UCOW 2021"
   },
   {
     "name": "Vince Frattaroli",
@@ -197,7 +221,8 @@
     "trophy": "COW/UCOW",
     "course": "Stoneleigh Golf Club",
     "score": 86,
-    "history": "vs JB, Paul, Ted"
+    "history": "vs JB, Paul, Ted",
+    "tournamentName": "Fall COW/UCOW 2021"
   },
   {
     "name": "Paul Dutko",
@@ -205,7 +230,8 @@
     "trophy": "COW/UCOW",
     "course": "River Bend Golf & CC",
     "score": 87,
-    "history": "vs JB, Vince"
+    "history": "vs JB, Vince",
+    "tournamentName": "Fall COW/UCOW 2021"
   },
   {
     "name": "Vince Frattaroli",
@@ -213,7 +239,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst #4, 5, 1 & 6",
     "score": 283,
-    "history": ""
+    "history": "",
+    "tournamentName": "2021 Petty Cup Championship"
   },
   {
     "name": "Vince Frattaroli",
@@ -221,7 +248,8 @@
     "trophy": "COW/UCOW",
     "course": "Pinehurst #6",
     "score": 96,
-    "history": ""
+    "history": "",
+    "tournamentName": "Spring COW/UCOW 2021"
   },
   {
     "name": "Jim Flanagan",
@@ -229,7 +257,8 @@
     "trophy": "COW/UCOW",
     "course": "Pinehurst #8",
     "score": 87,
-    "history": ""
+    "history": "",
+    "tournamentName": "Spring COW/UCOW 2021"
   },
   {
     "name": "Jim Flanagan",
@@ -237,7 +266,8 @@
     "trophy": "COW/UCOW",
     "course": "Bayonet at Puppy Creek GC",
     "score": 84,
-    "history": "P2 first challenge! Along with P1"
+    "history": "P2 first challenge! Along with P1",
+    "tournamentName": "Spring COW/UCOW 2021"
   },
   {
     "name": "Jim Flanagan",
@@ -245,7 +275,8 @@
     "trophy": "COW/UCOW",
     "course": "Carolina Lakes",
     "score": 91,
-    "history": "Card off vs Dom 2nd hole"
+    "history": "Card off vs Dom 2nd hole",
+    "tournamentName": "Spring COW/UCOW 2021"
   },
   {
     "name": "Vince Frattaroli",
@@ -253,7 +284,8 @@
     "trophy": "COW/UCOW",
     "course": "Stonebridge",
     "score": 86,
-    "history": "Dom Charlotte Pop In"
+    "history": "Dom Charlotte Pop In",
+    "tournamentName": "Spring COW/UCOW 2021"
   },
   {
     "name": "Jim Flanagan",
@@ -261,7 +293,8 @@
     "trophy": "COW/UCOW",
     "course": "Pinehurst #6",
     "score": 85,
-    "history": ""
+    "history": "",
+    "tournamentName": "New Year COW/UCOW 2021"
   },
   {
     "name": "Jim Flanagan",
@@ -269,7 +302,8 @@
     "trophy": "COW/UCOW",
     "course": "Pinehurst #8",
     "score": 89,
-    "history": "Card off vs Paul"
+    "history": "Card off vs Paul",
+    "tournamentName": "New Year COW/UCOW 2021"
   },
   {
     "name": "Vince Frattaroli",
@@ -277,7 +311,8 @@
     "trophy": "COW/UCOW",
     "course": "Pinehurst #3",
     "score": 84,
-    "history": "Back to back defense"
+    "history": "Back to back defense",
+    "tournamentName": "New Year COW/UCOW 2021"
   },
   {
     "name": "Vince Frattaroli",
@@ -285,7 +320,8 @@
     "trophy": "COW/UCOW",
     "course": "Tobacco Road",
     "score": 86,
-    "history": "Defended First time with Vincent Ryan and Justin"
+    "history": "Defended First time with Vincent Ryan and Justin",
+    "tournamentName": "New Year COW/UCOW 2021"
   },
   {
     "name": "Vince Frattaroli",
@@ -293,7 +329,8 @@
     "trophy": "COW/UCOW",
     "course": "Pinehurst #1",
     "score": 84,
-    "history": "B1G Championship reunion weekend!"
+    "history": "B1G Championship reunion weekend!",
+    "tournamentName": "Winter COW/UCOW 2020"
   },
   {
     "name": "Jim Flanagan",
@@ -301,7 +338,8 @@
     "trophy": "COW/UCOW",
     "course": "Pinehurst #3",
     "score": 85,
-    "history": "Jimmy wins card off vs Paul #1 HCP hole par vs bogey… called in the Godfather for rulling"
+    "history": "Jimmy wins card off vs Paul #1 HCP hole par vs bogey… called in the Godfather for rulling",
+    "tournamentName": "Fall COW/UCOW 2020"
   },
   {
     "name": "Paul Dutko",
@@ -309,7 +347,8 @@
     "trophy": "COW/UCOW",
     "course": "Pinehurst #1",
     "score": 82,
-    "history": ""
+    "history": "",
+    "tournamentName": "Fall COW/UCOW 2020"
   },
   {
     "name": "Jim Flanagan",
@@ -317,7 +356,8 @@
     "trophy": "COW/UCOW",
     "course": "Pinehurst #5",
     "score": 87,
-    "history": "First time the COW and UCOW was unified"
+    "history": "First time the COW and UCOW was unified",
+    "tournamentName": "COW/UCOW Unification 2020"
   },
   {
     "name": "Vince Frattaroli",
@@ -325,7 +365,8 @@
     "trophy": "UCOW",
     "course": "Pinehurst #6",
     "score": 85,
-    "history": "Vince Eagle 1st hole on #6 and never looks back!"
+    "history": "Vince Eagle 1st hole on #6 and never looks back!",
+    "tournamentName": "UCOW Championship 2020"
   },
   {
     "name": "Jim Flanagan",
@@ -333,7 +374,8 @@
     "trophy": "UCOW",
     "course": "Pinehurst #5",
     "score": 85,
-    "history": "First ever UCOW Sanctioned by Jimmy, Skyler and Shooter best pop in ever! *See Jimmy for Rules"
+    "history": "First ever UCOW Sanctioned by Jimmy, Skyler and Shooter best pop in ever! *See Jimmy for Rules",
+    "tournamentName": "Inaugural UCOW 2020"
   },
   {
     "name": "Paul Dutko",
@@ -341,7 +383,8 @@
     "trophy": "COW",
     "course": "Potomac Shores",
     "score": 95,
-    "history": ""
+    "history": "",
+    "tournamentName": "COW Championship 2020"
   },
   {
     "name": "Vince Frattaroli",
@@ -349,7 +392,8 @@
     "trophy": "COW",
     "course": "Mattaponi Springs",
     "score": 87,
-    "history": "First time the COW was successfully defended and played outside of PH"
+    "history": "First time the COW was successfully defended and played outside of PH",
+    "tournamentName": "COW Championship 2020"
   },
   {
     "name": "Vince Frattaroli",
@@ -357,7 +401,8 @@
     "trophy": "COW",
     "course": "Pinehurst #5",
     "score": 94,
-    "history": "First ever COW card off vs Jimmy and Paul"
+    "history": "First ever COW card off vs Jimmy and Paul",
+    "tournamentName": "COW Championship 2020"
   },
   {
     "name": "Paul Dutko",
@@ -365,7 +410,8 @@
     "trophy": "COW",
     "course": "Southern Pines",
     "score": 83,
-    "history": "First ever COW sanctioned by Paul and Ted *See DY for Rules"
+    "history": "First ever COW sanctioned by Paul and Ted *See DY for Rules",
+    "tournamentName": "Inaugural COW 2020"
   },
   {
     "name": "Jim Flanagan",
@@ -373,7 +419,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst #1, 5, 3 & 6",
     "score": 285,
-    "history": ""
+    "history": "",
+    "tournamentName": "2020 Petty Cup Championship"
   },
   {
     "name": "Jim Flanagan",
@@ -381,7 +428,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst #6, 5, 4 & 1",
     "score": 290,
-    "history": ""
+    "history": "",
+    "tournamentName": "2019 Petty Cup Championship"
   },
   {
     "name": "John Bart",
@@ -389,7 +437,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": ""
+    "history": "",
+    "tournamentName": "2019 Paultz Championship"
   },
   {
     "name": "John Bart",
@@ -397,7 +446,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": ""
+    "history": "",
+    "tournamentName": "2019 Paultz Championship"
   },
   {
     "name": "John Bart",
@@ -405,7 +455,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": ""
+    "history": "",
+    "tournamentName": "2019 Paultz Championship"
   },
   {
     "name": "Jim Flanagan",
@@ -413,7 +464,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst #3, 5, 6 & 1",
     "score": 275,
-    "history": ""
+    "history": "",
+    "tournamentName": "2018 Petty Cup Championship"
   },
   {
     "name": "Jim Flanagan",
@@ -421,7 +473,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst #5, 4, 1 & 6",
     "score": 283,
-    "history": ""
+    "history": "",
+    "tournamentName": "2017 Petty Cup Championship"
   },
   {
     "name": "Michael Wolper",
@@ -429,7 +482,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst #1, 4, 5 & 6",
     "score": 290,
-    "history": ""
+    "history": "",
+    "tournamentName": "2016 Petty Cup Championship"
   },
   {
     "name": "Dom Fabiilli",
@@ -437,7 +491,8 @@
     "trophy": "Petty Cup",
     "course": "Pine Needles, #5, 1 & 6",
     "score": 295,
-    "history": "Tied with Jimmy, Dom wins the playoff!"
+    "history": "Tied with Jimmy, Dom wins the playoff!",
+    "tournamentName": "2015 Petty Cup Championship"
   },
   {
     "name": "Kevin Britt",
@@ -445,7 +500,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst #4, 5, 3 & 6",
     "score": 295,
-    "history": ""
+    "history": "",
+    "tournamentName": "2014 Petty Cup Championship"
   },
   {
     "name": "Jim Flanagan",
@@ -453,7 +509,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst #3, 4, 5 & 6",
     "score": 266,
-    "history": ""
+    "history": "",
+    "tournamentName": "2013 Petty Cup Championship"
   },
   {
     "name": "Vince Frattaroli",
@@ -461,7 +518,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst #1, 5 & 3",
     "score": 217,
-    "history": "Shortened three rounds due to Paul Weather"
+    "history": "Shortened three rounds due to Paul Weather",
+    "tournamentName": "2012 Petty Cup Championship"
   },
   {
     "name": "Kevin Britt",
@@ -469,7 +527,8 @@
     "trophy": "Petty Cup",
     "course": "Pinehurst #2, 1, 1 & 5",
     "score": 288,
-    "history": "First ever Petty Cup"
+    "history": "First ever Petty Cup",
+    "tournamentName": "Inaugural Petty Cup 2011"
   },
   {
     "name": "Ken Sympson",
@@ -477,7 +536,8 @@
     "trophy": "Brycehurst",
     "course": "Pinehurst #4, 5, 5 & 8",
     "score": 284,
-    "history": "First ever Brycehurst Invitational"
+    "history": "First ever Brycehurst Invitational",
+    "tournamentName": "Inaugural Brycehurst Invitational 2010"
   },
   {
     "name": "Kevin Britt",
@@ -485,7 +545,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": ""
+    "history": "",
+    "tournamentName": "1999 Paultz Championship"
   },
   {
     "name": "Dom Fabiilli",
@@ -493,7 +554,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": ""
+    "history": "",
+    "tournamentName": "1999 Paultz Championship"
   },
   {
     "name": "Ted Yatsko",
@@ -501,7 +563,8 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": ""
+    "history": "",
+    "tournamentName": "1999 Paultz Championship"
   },
   {
     "name": "Ken Sympson",
@@ -509,6 +572,7 @@
     "trophy": "Paultz",
     "course": "Mill Creek",
     "score": 62,
-    "history": ""
+    "history": "",
+    "tournamentName": "1999 Paultz Championship"
   }
 ]
