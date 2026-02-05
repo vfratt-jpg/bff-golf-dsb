@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Performance Analytics - Our Golf Journey BFF</title>
-<link href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;⛳&lt;/text&gt;&lt;/svg&gt;" rel="icon"/>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Our Golf Journey, Bryce Friends Forever - BFF</title>
+    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;⛳&lt;/text&gt;&lt;/svg&gt;">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -109,11 +108,11 @@
         .analytics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 25px;
+            gap: 30px;
             margin-bottom: 30px;
         }
 
-        .analytics-card {
+        .card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
@@ -122,7 +121,7 @@
             transition: transform 0.3s ease;
         }
 
-        .analytics-card:hover {
+        .card:hover {
             transform: translateY(-5px);
         }
 
@@ -146,12 +145,10 @@
             color: white;
         }
 
-        .competitive-icon { background: linear-gradient(135deg, #FF5722, #D84315); }
-        .dominance-icon { background: linear-gradient(135deg, #FFD700, #FFA000); }
-        .difficulty-icon { background: linear-gradient(135deg, #9C27B0, #7B1FA2); }
-        .trends-icon { background: linear-gradient(135deg, #2196F3, #1976D2); }
-        .versatility-icon { background: linear-gradient(135deg, #4CAF50, #2E7D32); }
-        .activity-icon { background: linear-gradient(135deg, #FF9800, #F57C00); }
+        .crown-icon { background: linear-gradient(135deg, #FFD700, #FFA000); }
+        .trophy-icon { background: linear-gradient(135deg, #9C27B0, #7B1FA2); }
+        .trend-icon { background: linear-gradient(135deg, #2196F3, #1976D2); }
+        .stats-icon { background: linear-gradient(135deg, #FF5722, #D84315); }
 
         .card h3 {
             color: #1e3c72;
@@ -165,37 +162,73 @@
             margin-top: 20px;
         }
 
-        .large-chart {
-            height: 450px;
+        .analytics-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
         }
 
-        .insights-list {
-            list-style: none;
-            margin-top: 15px;
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
         }
 
-        .insights-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 14px;
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4CAF50;
+            margin-bottom: 5px;
         }
 
-        .insights-list li:last-child {
-            border-bottom: none;
-        }
-
-        .metric-badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 12px;
+        .stat-label {
             font-size: 12px;
+            color: #666;
             font-weight: 600;
-            margin-left: 8px;
         }
 
-        .competitive { background: #e8f5e8; color: #2E7D32; }
-        .dominated { background: #fff3e0; color: #F57C00; }
-        .moderate { background: #e3f2fd; color: #1976D2; }
+        .tournament-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .tournament-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .tournament-name {
+            font-weight: 600;
+            color: #4CAF50;
+            margin-bottom: 3px;
+            font-size: 15px;
+        }
+
+        .tournament-details {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .tournament-date {
+            font-size: 11px;
+            color: #999;
+            margin-top: 3px;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            font-size: 18px;
+            color: #666;
+        }
 
         @media (max-width: 768px) {
             .header-content {
@@ -208,227 +241,174 @@
                 text-align: center;
             }
 
+            .nav-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
             .analytics-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 18px;
             }
         }
     </style>
 </head>
 <body>
-<header class="header">
-<div class="header-content">
-<div class="logo">
-<div class="logo-icon">📊</div>
-<h1>Performance Analytics - BFF Golf Journey</h1>
-</div>
-<div class="nav-buttons">
-<a class="btn btn-primary" href="index.html">
-                    🏠 Main Dashboard
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">⛳</div>
+                <h1>Our Golf Journey, Bryce Friends Forever - BFF</h1>
+            </div>
+            <div class="nav-buttons">
+                <a href="index.html" class="btn btn-primary">
+                    🏠 Dashboard
                 </a>
-<a class="btn btn-secondary" href="our-story.html">
+                <a href="our-story.html" class="btn btn-secondary">
                     📖 Our Story
                 </a>
-<button class="btn btn-secondary" onclick="downloadReport()">
-                    📄 Download Report
-                </button>
-</div>
-</div>
-</header>
-<div class="container">
-<div class="analytics-grid">
-<!-- Competitiveness Analysis -->
-<div class="analytics-card">
-<div class="card-header">
-<div class="card-icon competitive-icon">🔥</div>
-<h3>Championship Competitiveness</h3>
-</div>
-<div class="chart-container">
-<canvas id="competitivenessChart"></canvas>
-</div>
-<ul class="insights-list">
-<li>🥇 Most Competitive: SUC <span class="metric-badge competitive">1.000</span></li>
-<li>🥈 Balanced: Paultz &amp; Petty Cup <span class="metric-badge moderate">0.467</span></li>
-<li>🥉 Dominated: COW/UCOW <span class="metric-badge dominated">0.158</span></li>
-</ul>
-</div>
-<!-- Player Dominance -->
-<div class="analytics-card">
-<div class="card-header">
-<div class="card-icon dominance-icon">👑</div>
-<h3>Player Dominance Analysis</h3>
-</div>
-<div class="chart-container">
-<canvas id="dominanceChart"></canvas>
-</div>
-<ul class="insights-list">
-<li>🎯 Most Versatile: Vince Frattaroli (7/8 trophy types)</li>
-<li>⚡ Most Focused: Jim Flanagan (4/8 trophy types)</li>
-<li>🌟 Rising Star: John Bart (recent success)</li>
-</ul>
-</div>
-<!-- Scoring Difficulty -->
-<div class="analytics-card">
-<div class="card-header">
-<div class="card-icon difficulty-icon">🎯</div>
-<h3>Tournament Difficulty Analysis</h3>
-</div>
-<div class="chart-container">
-<canvas id="difficultyChart"></canvas>
-</div>
-<ul class="insights-list">
-<li>🔥 Hardest: SUC (81.3 avg score)</li>
-<li>⚡ Challenging: TAMC (84.2 avg score)</li>
-<li>📊 Most Variable: Petty Cup (103-point spread)</li>
-</ul>
-</div>
-<!-- Tournament Activity Trends -->
-<div class="analytics-card">
-<div class="card-header">
-<div class="card-icon trends-icon">📈</div>
-<h3>Activity Trends (2020-2025)</h3>
-</div>
-<div class="chart-container">
-<canvas id="trendsChart"></canvas>
-</div>
-<ul class="insights-list">
-<li>📊 Peak Year: 2021 (13 tournaments)</li>
-<li>🔄 Paultz Revival: 2023-2024 comeback</li>
-<li>🏆 Consistent: Petty Cup annual tradition</li>
-</ul>
-</div>
-<!-- Player Versatility -->
-<div class="analytics-card">
-<div class="card-header">
-<div class="card-icon versatility-icon">🎨</div>
-<h3>Player Versatility Matrix</h3>
-</div>
-<div class="chart-container">
-<canvas id="versatilityChart"></canvas>
-</div>
-<ul class="insights-list">
-<li>🏆 Vince: 19 wins across 7 trophy types</li>
-<li>⚡ Jim: 18 wins focused on 4 trophy types</li>
-<li>🎯 Ken: 4 wins across 4 trophy types</li>
-</ul>
-</div>
-<!-- Championship Activity Heatmap -->
-<div class="analytics-card">
-<div class="card-header">
-<div class="card-icon activity-icon">🗓️</div>
-<h3>Trophy Type Distribution</h3>
-</div>
-<div class="chart-container large-chart">
-<canvas id="activityChart"></canvas>
-</div>
-<ul class="insights-list">
-<li>🔥 Most Active: COW/UCOW (19 total tournaments)</li>
-<li>📅 Most Consistent: Petty Cup (annual schedule)</li>
-<li>🔄 Biggest Gap: Paultz (2019-2023 hiatus)</li>
-</ul>
-</div>
-</div>
-</div>
-<script>
-        let championshipsData = [];
-        let charts = {};
+            </div>
+        </div>
+    </header>
 
-        // Load championship data
-        async function loadChampionshipData() {
+    <div class="container">
+        <h2 style="color: white; text-align: center; margin-bottom: 30px; font-size: 28px;">
+            📊 Championship Analytics
+        </h2>
+
+        <!-- Analytics Cards -->
+        <div class="analytics-grid">
+            <!-- Player Dominance Analysis -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon crown-icon">👑</div>
+                    <h3>Player Dominance Analysis</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="playerDominanceChart"></canvas>
+                </div>
+                <div class="analytics-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="dominanceIndex">-</div>
+                        <div class="stat-label">Dominance Index</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="balanceScore">-</div>
+                        <div class="stat-label">Balance Score</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trophy Type Distribution -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon trophy-icon">🏆</div>
+                    <h3>Trophy Type Distribution</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trophyDistributionChart"></canvas>
+                </div>
+                <div class="analytics-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="mostActive">-</div>
+                        <div class="stat-label">Most Active</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="diversityIndex">-</div>
+                        <div class="stat-label">Diversity Index</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tournament Timeline -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon trend-icon">📈</div>
+                    <h3>Tournament Activity Timeline</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Tournament Details -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon stats-icon">📋</div>
+                    <h3>Recent Tournament Details</h3>
+                </div>
+                <div class="tournament-list" id="tournamentList">
+                    <div class="loading">Loading tournament details...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let championshipData = [];
+        let analyticsCharts = {};
+
+        // Initialize analytics
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAnalyticsData();
+        });
+
+        async function loadAnalyticsData() {
             try {
                 const response = await fetch('./data/championships.json');
-                championshipsData = await response.json();
-                createAllCharts();
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                championshipData = await response.json();
+                console.log('Analytics data loaded:', championshipData.length, 'records');
+                renderAnalytics();
             } catch (error) {
-                console.error('Error loading championship data:', error);
+                console.error('Failed to load analytics data:', error);
+                showError('Failed to load championship data for analytics.');
             }
         }
 
-        function createAllCharts() {
-            createCompetitivenessChart();
-            createDominanceChart();
-            createDifficultyChart();
-            createTrendsChart();
-            createVersatilityChart();
-            createActivityChart();
+        function renderAnalytics() {
+            renderPlayerDominanceChart();
+            renderTrophyDistributionChart();
+            renderTimelineChart();
+            renderTournamentList();
+            calculateAnalyticsStats();
         }
 
-        function createCompetitivenessChart() {
-            const ctx = document.getElementById('competitivenessChart').getContext('2d');
-            
-            // Calculate competitiveness scores
-            const trophyTypes = [...new Set(championshipsData.map(c => c.trophy))];
-            const competitivenessData = trophyTypes.map(trophy => {
-                const trophyData = championshipsData.filter(c => c.trophy === trophy);
-                const uniqueWinners = new Set(trophyData.map(c => c.name)).size;
-                return {
-                    trophy,
-                    score: uniqueWinners / trophyData.length,
-                    tournaments: trophyData.length
-                };
-            }).sort((a, b) => b.score - a.score);
+        function renderPlayerDominanceChart() {
+            const ctx = document.getElementById('playerDominanceChart');
+            if (!ctx) return;
 
-            charts.competitiveness = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: competitivenessData.map(d => d.trophy),
-                    datasets: [{
-                        label: 'Competitiveness Score',
-                        data: competitivenessData.map(d => d.score),
-                        backgroundColor: [
-                            '#FF5722', '#FF9800', '#FFC107', '#4CAF50',
-                            '#2196F3', '#9C27B0', '#795548', '#607D8B'
-                        ],
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const data = competitivenessData[context.dataIndex];
-                                    return `Score: ${context.parsed.y.toFixed(3)} (${data.tournaments} tournaments)`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 1,
-                            title: { display: true, text: 'Competitiveness Score' }
-                        }
-                    }
-                }
-            });
-        }
-
-        function createDominanceChart() {
-            const ctx = document.getElementById('dominanceChart').getContext('2d');
-            
-            // Calculate player wins
-            const playerWins = {};
-            championshipsData.forEach(c => {
-                playerWins[c.name] = (playerWins[c.name] || 0) + 1;
+            // Count championships per player
+            const playerCounts = {};
+            championshipData.forEach(t => {
+                playerCounts[t.name] = (playerCounts[t.name] || 0) + 1;
             });
 
-            const sortedPlayers = Object.entries(playerWins)
-                .sort(([,a], [,b]) => b - a)
-                .slice(0, 8);
+            const colors = [
+                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF', '#E7E9ED'
+            ];
 
-            charts.dominance = new Chart(ctx, {
+            if (analyticsCharts.playerDominanceChart) {
+                analyticsCharts.playerDominanceChart.destroy();
+            }
+
+            analyticsCharts.playerDominanceChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: sortedPlayers.map(([name]) => name),
+                    labels: Object.keys(playerCounts),
                     datasets: [{
-                        data: sortedPlayers.map(([, wins]) => wins),
-                        backgroundColor: [
-                            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
-                            '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF'
-                        ]
+                        data: Object.values(playerCounts),
+                        backgroundColor: colors.slice(0, Object.keys(playerCounts).length),
+                        borderWidth: 2,
+                        borderColor: '#fff'
                     }]
                 },
                 options: {
@@ -438,13 +418,18 @@
                         legend: {
                             position: 'bottom',
                             labels: {
+                                padding: 15,
+                                usePointStyle: true,
                                 generateLabels: function(chart) {
                                     const data = chart.data;
                                     return data.labels.map((label, i) => {
-                                        const wins = data.datasets[0].data[i];
+                                        const count = data.datasets[0].data[i];
                                         return {
-                                            text: `${label} (${wins})`,
+                                            text: `${label} (${count})`,
                                             fillStyle: data.datasets[0].backgroundColor[i],
+                                            strokeStyle: data.datasets[0].borderColor,
+                                            lineWidth: data.datasets[0].borderWidth,
+                                            pointStyle: 'circle',
                                             hidden: false,
                                             index: i
                                         };
@@ -457,210 +442,38 @@
             });
         }
 
-        function createDifficultyChart() {
-            const ctx = document.getElementById('difficultyChart').getContext('2d');
-            
-            // Calculate average scores (excluding Paultz fixed scores)
-            const trophyScores = {};
-            championshipsData.forEach(c => {
-                if (c.score !== 62) { // Exclude Paultz fixed scores
-                    if (!trophyScores[c.trophy]) trophyScores[c.trophy] = [];
-                    trophyScores[c.trophy].push(c.score);
-                }
-            });
+        function renderTrophyDistributionChart() {
+            const ctx = document.getElementById('trophyDistributionChart');
+            if (!ctx) return;
 
-            const difficultyData = Object.entries(trophyScores)
-                .map(([trophy, scores]) => ({
-                    trophy,
-                    avgScore: scores.reduce((a, b) => a + b, 0) / scores.length,
-                    count: scores.length
-                }))
-                .sort((a, b) => a.avgScore - b.avgScore);
-
-            charts.difficulty = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: difficultyData.map(d => d.trophy),
-                    datasets: [{
-                        label: 'Average Score',
-                        data: difficultyData.map(d => d.avgScore),
-                        backgroundColor: '#9C27B0',
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const data = difficultyData[context.dataIndex];
-                                    return `Avg Score: ${context.parsed.y.toFixed(1)} (${data.count} tournaments)`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Average Score (Lower = Harder)' }
-                        }
-                    }
-                }
-            });
-        }
-
-        function createTrendsChart() {
-            const ctx = document.getElementById('trendsChart').getContext('2d');
-            
-            // Calculate yearly activity
-            const yearlyActivity = {};
-            championshipsData.forEach(c => {
-                const year = new Date(c.date).getFullYear();
-                if (year >= 2020) {
-                    yearlyActivity[year] = (yearlyActivity[year] || 0) + 1;
-                }
-            });
-
-            const years = Object.keys(yearlyActivity).sort();
-            const counts = years.map(year => yearlyActivity[year]);
-
-            charts.trends = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: years,
-                    datasets: [{
-                        label: 'Tournaments per Year',
-                        data: counts,
-                        borderColor: '#2196F3',
-                        backgroundColor: '#2196F3',
-                        tension: 0.4,
-                        fill: false,
-                        pointRadius: 6,
-                        pointHoverRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Number of Tournaments' }
-                        }
-                    }
-                }
-            });
-        }
-
-        function createVersatilityChart() {
-            const ctx = document.getElementById('versatilityChart').getContext('2d');
-            
-            // Calculate player versatility
-            const playerVersatility = {};
-            const totalTrophyTypes = new Set(championshipsData.map(c => c.trophy)).size;
-            
-            championshipsData.forEach(c => {
-                if (!playerVersatility[c.name]) {
-                    playerVersatility[c.name] = { wins: 0, trophies: new Set() };
-                }
-                playerVersatility[c.name].wins++;
-                playerVersatility[c.name].trophies.add(c.trophy);
-            });
-
-            const versatilityData = Object.entries(playerVersatility)
-                .map(([name, data]) => ({
-                    name,
-                    wins: data.wins,
-                    versatility: data.trophies.size / totalTrophyTypes
-                }))
-                .filter(d => d.wins >= 3) // Only show players with 3+ wins
-                .sort((a, b) => b.wins - a.wins);
-
-            charts.versatility = new Chart(ctx, {
-                type: 'scatter',
-                data: {
-                    datasets: [{
-                        label: 'Players',
-                        data: versatilityData.map(d => ({ x: d.versatility, y: d.wins })),
-                        backgroundColor: versatilityData.map((_, i) => 
-                            ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'][i % 5]
-                        ),
-                        pointRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const player = versatilityData[context.dataIndex];
-                                    return `${player.name}: ${player.wins} wins, ${(player.versatility * 100).toFixed(1)}% versatility`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            title: { display: true, text: 'Versatility Score (Trophy Types Won / Total Types)' },
-                            min: 0,
-                            max: 1
-                        },
-                        y: {
-                            title: { display: true, text: 'Total Wins' },
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
-
-        function createActivityChart() {
-            const ctx = document.getElementById('activityChart').getContext('2d');
-            
-            // Create activity matrix by year and trophy
-            const years = [...new Set(championshipsData.map(c => new Date(c.date).getFullYear()))].sort();
-            const trophies = [...new Set(championshipsData.map(c => c.trophy))];
-            
-            // Calculate total count for each trophy
+            // Count trophies by type
             const trophyCounts = {};
-            championshipsData.forEach(c => {
-                trophyCounts[c.trophy] = (trophyCounts[c.trophy] || 0) + 1;
-            });
-            
-            const datasets = trophies.map((trophy, index) => {
-                const data = years.map(year => {
-                    return championshipsData.filter(c => 
-                        new Date(c.date).getFullYear() === year && c.trophy === trophy
-                    ).length;
-                });
-                
-                const colors = [
-                    '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
-                    '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF'
-                ];
-                
-                return {
-                    label: `${trophy} (${trophyCounts[trophy]})`,
-                    data: data,
-                    backgroundColor: colors[index % colors.length],
-                    borderRadius: 4
-                };
+            championshipData.forEach(t => {
+                trophyCounts[t.trophy] = (trophyCounts[t.trophy] || 0) + 1;
             });
 
-            charts.activity = new Chart(ctx, {
-                type: 'bar',
+            const labels = Object.keys(trophyCounts);
+            const data = Object.values(trophyCounts);
+
+            if (analyticsCharts.trophyDistributionChart) {
+                analyticsCharts.trophyDistributionChart.destroy();
+            }
+
+            analyticsCharts.trophyDistributionChart = new Chart(ctx, {
+                type: 'radar',
                 data: {
-                    labels: years,
-                    datasets: datasets
+                    labels: labels,
+                    datasets: [{
+                        label: 'Tournament Count',
+                        data: data,
+                        backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                        borderColor: '#4CAF50',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#4CAF50',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5
+                    }]
                 },
                 options: {
                     responsive: true,
@@ -668,32 +481,157 @@
                     plugins: {
                         legend: {
                             position: 'bottom',
-                            labels: { usePointStyle: true }
+                            labels: {
+                                generateLabels: function(chart) {
+                                    const data = chart.data;
+                                    return data.labels.map((label, i) => {
+                                        const count = data.datasets[0].data[i];
+                                        return {
+                                            text: `${label} (${count})`,
+                                            fillStyle: '#4CAF50',
+                                            strokeStyle: '#4CAF50',
+                                            lineWidth: 2,
+                                            pointStyle: 'circle',
+                                            hidden: false,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
                         }
                     },
                     scales: {
-                        x: { stacked: true },
-                        y: { 
-                            stacked: true,
+                        r: {
                             beginAtZero: true,
-                            title: { display: true, text: 'Number of Tournaments' }
+                            ticks: {
+                                stepSize: 5
+                            }
                         }
                     }
                 }
             });
         }
 
-        function downloadReport() {
-            const link = document.createElement('a');
-            link.href = './PERFORMANCE_ANALYSIS_REPORT.md';
-            link.download = 'BFF_Golf_Performance_Analysis_Report.md';
-            link.click();
+        function renderTimelineChart() {
+            const ctx = document.getElementById('timelineChart');
+            if (!ctx) return;
+
+            // Group tournaments by year
+            const yearlyData = {};
+            championshipData.forEach(t => {
+                const year = new Date(t.date).getFullYear();
+                yearlyData[year] = (yearlyData[year] || 0) + 1;
+            });
+
+            const years = Object.keys(yearlyData).sort();
+            const counts = years.map(year => yearlyData[year]);
+
+            if (analyticsCharts.timelineChart) {
+                analyticsCharts.timelineChart.destroy();
+            }
+
+            analyticsCharts.timelineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Tournaments per Year',
+                        data: counts,
+                        borderColor: '#4CAF50',
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#4CAF50',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
         }
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            loadChampionshipData();
-        });
+        function renderTournamentList() {
+            const container = document.getElementById('tournamentList');
+            if (!container) return;
+
+            const recent = [...championshipData]
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 10);
+
+            container.innerHTML = recent.map(tournament => `
+                <div class="tournament-item">
+                    ${tournament.tournamentName ? `<div class="tournament-name">${tournament.tournamentName}</div>` : ''}
+                    <div class="tournament-details">
+                        <strong>${tournament.name}</strong> won ${tournament.trophy}
+                        <br>Course: ${tournament.course} | Score: ${tournament.score}
+                        ${tournament.history ? `<br><em>${tournament.history}</em>` : ''}
+                    </div>
+                    <div class="tournament-date">${new Date(tournament.date).toLocaleDateString()}</div>
+                </div>
+            `).join('');
+        }
+
+        function calculateAnalyticsStats() {
+            // Calculate dominance index (standard deviation of wins)
+            const playerCounts = {};
+            championshipData.forEach(t => {
+                playerCounts[t.name] = (playerCounts[t.name] || 0) + 1;
+            });
+
+            const wins = Object.values(playerCounts);
+            const mean = wins.reduce((a, b) => a + b, 0) / wins.length;
+            const variance = wins.reduce((sum, win) => sum + Math.pow(win - mean, 2), 0) / wins.length;
+            const dominanceIndex = Math.sqrt(variance).toFixed(1);
+
+            // Calculate balance score (inverse of dominance, normalized to 0-100)
+            const maxPossibleDominance = Math.sqrt(Math.pow(championshipData.length - mean, 2));
+            const balanceScore = Math.max(0, 100 - (dominanceIndex / maxPossibleDominance * 100)).toFixed(0);
+
+            // Find most active trophy type
+            const trophyCounts = {};
+            championshipData.forEach(t => {
+                trophyCounts[t.trophy] = (trophyCounts[t.trophy] || 0) + 1;
+            });
+
+            const mostActiveTrophy = Object.entries(trophyCounts)
+                .sort(([,a], [,b]) => b - a)[0];
+
+            // Calculate diversity index (number of different trophy types)
+            const diversityIndex = Object.keys(trophyCounts).length.toFixed(1);
+
+            // Update DOM
+            document.getElementById('dominanceIndex').textContent = dominanceIndex;
+            document.getElementById('balanceScore').textContent = balanceScore + '%';
+            document.getElementById('mostActive').textContent = mostActiveTrophy ? mostActiveTrophy[0] : 'N/A';
+            document.getElementById('diversityIndex').textContent = diversityIndex;
+        }
+
+        function showError(message) {
+            const container = document.querySelector('.container');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.style.cssText = 'color: #f44336; text-align: center; padding: 20px; background: rgba(255,255,255,0.9); border-radius: 8px; margin: 20px 0;';
+            errorDiv.textContent = message;
+            container.insertBefore(errorDiv, container.firstChild);
+        }
     </script>
 </body>
 </html>
