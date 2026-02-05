@@ -371,21 +371,27 @@
 </head>
 <body>
     <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">⛳</div>
-                <h1>Our Golf Journey, Bryce Friends Forever - BFF</h1>
-            </div>
-            <div class="nav-buttons">
-                <a href="our-story.html" class="btn btn-secondary">
-                    📖 Our Story
-                </a>
-                <a href="analytics.html" class="btn btn-secondary">
-                    📊 Analytics
-                </a>
-            </div>
-        </div>
-    </header>
+<div class="header-content">
+<div class="logo">
+<div class="logo-icon">⛳</div>
+<h1>Our Golf Journey, Bryce Friends Forever - BFF</h1>
+</div>
+<div class="nav-buttons">
+<a class="btn btn-primary" href="our-story.html">
+    📖 Our Story
+</a>
+<a class="btn btn-secondary" href="analytics.html">
+    📊 Analytics
+</a>
+<button class="btn btn-secondary" onclick="openAddTournamentModal()">
+    ➕ Add Tournament
+</button>
+<button class="btn btn-secondary" onclick="exportData()">
+    💾 Export Data
+</button>
+</div>
+</div>
+</header>
 
     <div class="container">
         <!-- Main Dashboard Stats -->
